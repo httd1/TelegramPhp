@@ -1,6 +1,6 @@
 # TelegramPhp
 
-![GitHub Org's stars](https://img.shields.io/github/stars/httd1?style=social)
+[![GitHub license](https://img.shields.io/github/license/httd1/TelegramPhp)](https://github.com/httd1/TelegramPhp/blob/main/LICENSE) [![GitHub stars](https://img.shields.io/github/stars/httd1/TelegramPhp)](https://github.com/httd1/TelegramPhp/stargazers)
 
 Esse é um pacote em PHP para uso da API de bots do Telegram.  
 Esse pacote foi pensado para uso exclusivamente por [Webhook](https://core.telegram.org/bots/api#setwebhook), 
