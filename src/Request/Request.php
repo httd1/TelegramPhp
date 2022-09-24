@@ -42,11 +42,11 @@ class Request {
 
         $resultJson = json_decode ($result, true);
 
-        echo "Url: {$link}\n";
-        echo "Data: ".print_r ($data, true)."\n";
-        echo "Method: {$this->default_method_request}\n";
-        echo "========= RESPONSE =========\n";
-        echo "Response: {$result}\n";
+        // echo "Url: {$link}\n";
+        // echo "Data: ".print_r ($data, true)."\n";
+        // echo "Method: {$this->default_method_request}\n";
+        // echo "========= RESPONSE =========\n";
+        // echo "Response: {$result}\n";
 
         return $resultJson;
     }
