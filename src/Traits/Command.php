@@ -14,15 +14,15 @@ trait Command {
 
         return [
             'full' => $value_match [0],
-            'command' => $value_match ['command'],
-            'complement' => $value_match ['complement'] ?? null
+            'command' => $value_match ['command'] ?? '',
+            'complement' => $value_match ['complement'] ?? ''
         ];
     }
     
     public function isCommand (string $command)
     {
         $match = $this->matchCommand ($command);
-        return isset ($match ['command']);
+        return !empty ($match ['command']);
     }
     
     public function matchComplement (string|null $complement_route, string|null $complement_text)
@@ -77,6 +77,14 @@ trait Command {
             }
         }
         return $data;
+    }
+
+    public function complementEquals ($first_complement, $second_complement)
+    {
+        $reg = '/[^\s]+/';
+        $f = $this->match ($reg, $first_complement, true);
+        $s = $this->match ($reg, $second_complement, true);
+        return (count ($f) == count ($s));
     }
 
 }

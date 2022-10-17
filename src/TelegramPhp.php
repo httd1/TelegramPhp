@@ -49,8 +49,13 @@ class TelegramPhp {
      */
     public function command (string $route, $action) :void
     {
-        // é um comando ex: /comando, podemos processar
-        if ($this->isCommand ($this->getText ())){
+
+        if (empty ($route)){
+            throw new \Exception("Route cannot be empty!");
+        }
+
+        // se o texto e o route definido é um comando ex: /comando, podemos processar
+        if ($this->isCommand ($this->getText ()) && $this->isCommand ($route)){
             // separa $route em full, command, complement
             $route_command = $this->matchCommand ($route);
             // separa comando do usário em full, command, complement
@@ -58,7 +63,7 @@ class TelegramPhp {
             
             $data = $this->matchComplement ($route_command ['complement'], $text_command ['complement']);
 
-            if (count (explode (' ', $route_command ['complement'] ?? '')) == count (explode (' ', $text_command ['complement'] ?? ''))){
+            if ($this->complementEquals ($route_command ['complement'], $text_command ['complement'])){
                 // /comando é o mesmo em $this->getText () e $route
                 if ($route_command ['command'] == $text_command ['command']){
                     $this->runAction ($action, $data);
@@ -82,6 +87,11 @@ class TelegramPhp {
      */
     public function commandMatch (string $regex, $action) :void
     {
+
+        if (empty ($regex)){
+            throw new \Exception("Regex cannot be empty!");
+        }
+
         $match = $this->match ($regex, $this->getText (), true);
 
         if (!empty ($match))
@@ -96,7 +106,56 @@ class TelegramPhp {
      */
     function runAction ($action, array $data = [])
     {
-        $action ($this, $data);
+        if (is_callable ($action)){
+            $action ($this, $data);
+        }else {
+            list ($class, $method) = $this->match ('/[^:]+/', $action, true);
+            $obj = new $class;
+            $obj->$method ($this, $data);
+        }
+    }
+
+    /**
+     * Verifies the secret token sent in an “X-Telegram-Bot-Api-Secret-Token” header on each webhook request, from 1 to 256 characters.
+     * The header is useful to ensure that the request comes from a webhook you define.
+     * 
+     * @return bool
+     */
+    public function checkSecretToken () :bool
+    {
+        return ($this->getSecretTokenRequest () == $this->secret_token);
+    }
+
+    /**
+     * Return the secret token from the webhook request
+     * 
+     * @return string
+     */
+    public function getSecretTokenRequest () :string
+    {
+        return $_SERVER ['HTTP_X_TELEGRAM_BOT_API_SECRET_TOKEN'] ?? '';
+    }
+
+    /**
+     * Get secret token
+     * 
+     * @return string
+     */
+    public function getSecretToken () :string
+    {
+        return $this->secret_token;
+    }
+
+    /**
+     * Set secret token used in webhook
+     * 
+     * @param string $secretToken
+     * 
+     * @return void
+     */
+    public function setSecretToken (string $secretToken)
+    {
+        $this->secret_token = $secretToken;
     }
 
     /**
@@ -207,7 +266,7 @@ class TelegramPhp {
      */
     public function getLanguageCode () :string
     {
-        return $this->content [$this->getUpdateType ()]['from']['id'] ?? 'en';
+        return $this->content [$this->getUpdateType ()]['from']['language_code'] ?? 'en';
     }
 
     /**

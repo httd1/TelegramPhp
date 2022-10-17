@@ -1,0 +1,47 @@
+<?php
+
+use \TelegramPhp\Methods;
+
+class MarkdownBot {
+
+    public function start ($bot, $data)
+    {
+        Methods::sendMessage ([
+            'chat_id' => $bot->getUserId (),
+            'text' => 'Send makdown text, <a href="https://core.telegram.org/bots/api#markdownv2-style">Formatting options</a>',
+            'parse_mode' => 'html',
+            'disable_web_page_preview' => true
+        ]);
+    }
+
+    public function help ($bot)
+    {
+        Methods::sendMessage ([
+            'chat_id' => $bot->getUserId (),
+            'text' => "You can use bold, italic, underlined, strikethrough, and spoiler text, as well as inline links and pre-formatted code in your bots' messages.\nTelegram clients will render them accordingly."
+        ]);
+    }
+
+    public function markdownText ($bot, $text)
+    {
+
+        $send = Methods::sendMessage ([
+            'chat_id' => $bot->getUserId (),
+            'text' => "{$text [0]}",
+            // 'reply_to_message_id' => $bot->getMessageId (),
+            'parse_mode' => 'markdown'
+        ]);
+
+        if (!$send ['ok'])
+        {
+            Methods::sendMessage ([
+                'chat_id' => $bot->getUserId (),
+                'text' => "Markdown error!",
+                // 'reply_to_message_id' => $bot->getMessageId (),
+                'parse_mode' => 'html'
+            ]);
+        }
+
+    }
+
+}

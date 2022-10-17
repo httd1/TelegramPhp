@@ -86,7 +86,7 @@ $tlg->commandMatch ('/^\/ok$/', function ($bot){
 ```
 
 ## Respondendo comandos
-Use os métodos ```command ()``` ou ```commandMatch ()``` para capturar comandos enviados ao bot.
+Use os métodos ```command ()``` ou ```commandMatch ()``` para capturar comandos enviados ao bot, uma funcão de callback ou um método de uma classe será executado para esse comando.
 
 - ```command ()``` - Para comandos padrão _/comando_ ou qualquer string simples que você considera um comando, um 👍 por exemplo! Usando ```{{param}}``` você pode nomear parâmetros que espera receber no comando.
 
@@ -97,12 +97,18 @@ $tlg->command ('👍', function ($bot){
 
 });
 
-$tlg->command ('/colors {{color_1}} {{color_2}} {{color_3}}}', function ($bot, $data){
+$tlg->command ('/colors {{color_1}} {{color_2}} {{color_3}}', function ($bot, $data){
 
   // $data ['color_1']...
   // process command...
 
 });
+
+// run the colors method of ClassBot class
+$tlg->command ('/colors {{color_1}} {{color_2}} {{color_3}}', 'ClassBot:methodColors');
+
+// for namespace use '\MyNamespace\ClassBot:colors'
+$tlg->command ('/colors {{color_1}} {{color_2}} {{color_3}}', '\MyNamespace\ClassBot:colors');
 ```
 
 - ```commandMatch ()``` - Para comandos que seguem um padrão diferente, comandos que casam com uma regex expecifica, [urls do telegram](https://regex101.com/r/Ddqz3q/1) por exemplo!
@@ -115,6 +121,19 @@ $tlg->commandMatch ('/^https?:\/\/t\.me\/\w{5,}$/', function ($bot, $data){
   // process command...
 
 });
+
+$tlg->commandMatch ('/^https?:\/\/t\.me\/\w{5,}$/', function ($bot, $data){
+
+  // $data [0]
+  // process command...
+
+});
+
+// run the executeLinks method of TelegramBot class
+$tlg->commandMatch ('/^https?:\/\/t\.me\/\w{5,}$/', 'TelegramBot:executeLinks');
+
+// for namespace use '\MyNamespace\ClassBot:colors'
+$tlg->commandMatch ('/^https?:\/\/t\.me\/\w{5,}$/', '\MyNamespace\TelegramBot:executeLinks');
 ```
 
 ## Alguns dos métodos disponíveis:
@@ -161,7 +180,7 @@ Methods::sendMessage ([
 ```php
 Methods::sendMessage ([
   'chat_id' => $bot->getChatId (),
-  'text' => '😍🤔👌🔥🤦‍♂️?',
+  'text' => '😍🤔👌🔥🤦',
   'reply_markup' => Buttons::forceReply ()
 ]);
 ```
