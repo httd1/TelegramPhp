@@ -182,19 +182,26 @@ class TelegramPhp {
      * At most one of these https://core.telegram.org/bots/api#update optional parameters can be present in any update.
      * 
      * @return string
+     * 
+     * @throws \Exception
      */
     public function getUpdateType () :string
     {
             $keys = array_keys ($this->content);
+
+            if (!isset ($keys [1])){
+                throw new \Exception ("Invalid update");
+            }
+
             return $keys [1];
     }
 
     /**
      * For text messages, the actual UTF-8 text of the message.
      * 
-     * @return string
+     * @return string|null
      */
-    public function getText () :string
+    public function getText () :?string
     {
         if ($this->getUpdateType () == 'edited_message'){
             return $this->content ['edited_message']['text'];
@@ -214,7 +221,7 @@ class TelegramPhp {
         if ($this->getUpdateType () == 'callback_query'){
             return $this->content ['callback_query']['data'];
         }
-        return $this->content ['message']['text'] ?? '';
+        return $this->content ['message']['text'] ?? null;
     }
    
     /**

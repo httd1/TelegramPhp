@@ -30,7 +30,7 @@ $tlg->setContent ('{
         "type":"private"
     },
     "date":1663637938,
-    "text":"/start carro",
+    "text":"/start",
     "entities":[
         {
             "offset":0,
@@ -41,6 +41,6 @@ $tlg->setContent ('{
     }
 }');
 
-$tlg->command ('/start {{teste}}', 'MarkdownBot:start');
+$tlg->command ('/start', 'MarkdownBot:start');
 $tlg->command ('/help', 'MarkdownBot:help');
 $tlg->commandMatch ('/^[^\/]+/', 'MarkdownBot:markdownText');

@@ -25,9 +25,11 @@ class MarkdownBot {
     public function markdownText ($bot, $text)
     {
 
+        $text_to_formatting = $text [0];
+
         $send = Methods::sendMessage ([
             'chat_id' => $bot->getUserId (),
-            'text' => "{$text [0]}",
+            'text' => "{$text_to_formatting}",
             // 'reply_to_message_id' => $bot->getMessageId (),
             'parse_mode' => 'markdown'
         ]);
@@ -37,7 +39,7 @@ class MarkdownBot {
             Methods::sendMessage ([
                 'chat_id' => $bot->getUserId (),
                 'text' => "Markdown error!",
-                // 'reply_to_message_id' => $bot->getMessageId (),
+                'reply_to_message_id' => $bot->getMessageId (),
                 'parse_mode' => 'html'
             ]);
         }

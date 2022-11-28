@@ -19,7 +19,7 @@ antes do uso leia a documentação completa do Telegram aqui https://core.telegr
 composer require httd1/TelegramPhp
 ```
 
-## Como usar:
+## Uso:
 
 ```php
 <?php
@@ -85,6 +85,28 @@ $tlg->commandMatch ('/^\/ok$/', function ($bot){
 });
 ```
 
+## 🔒 Segurança
+O Telegram oferece algumas formas de validar se o request recebido veio realmente de seus servidores ([mais aqui](https://core.telegram.org/bots/api#setwebhook)), você pode definir um ```secret_token``` no seu Webhook, todas as requisições terá seu token secreto no header _X-Telegram-Bot-Api-Secret-Token_, usando esse pacote você também pode validar o seu ```secret_token```.
+
+```php
+
+$secret_token = 'wubbalubbadub_dub';
+
+// set secret_token in webhook
+// Methods::setWebhook ([
+//   'url' => 'https://url.com/mybot/',
+//   'secret_token' => $secret_token
+// ]);
+
+// my secret token
+$tlg->setSecretToken ($secret_token);
+
+if ($tlg->checkSecretToken () == false){
+    http_response_code (401);
+}
+
+```
+
 ## Respondendo comandos
 Use os métodos ```command ()``` ou ```commandMatch ()``` para capturar comandos enviados ao bot, uma funcão de callback ou um método de uma classe será executado para esse comando.
 
@@ -138,7 +160,7 @@ $tlg->commandMatch ('/^https?:\/\/t\.me\/\w{5,}$/', '\MyNamespace\TelegramBot:ex
 
 ## Alguns dos métodos disponíveis:
 
-``` getText ()```, ``` getUpdateType ()```, ``` getContent ()```, ``` getUserId ()```, ``` getUsername ()```, ``` getFirstName ()```, ``` getLastName ()```, ``` getFullName ()``` - Nome completo do usuário; ``` getLanguageCode ()``` - [ID de idioma do usuário](https://en.wikipedia.org/wiki/IETF_language_tag); ``` getMessageId ()```, ``` getChatId ()```, ``` getMediaType ()``` - Tipo de mídia, _photo, animation, audio, document, sticker, video, video_note, voice, contact, dice, game, poll, venue, location, invoice_; ``` getCallbackQueryId ()```, ``` getChatType ()``` - Tipo de chat, _private, group, supergroup, channel_; ``` saveFile ()``` - Download de um arquivo, recebe como parâmetro o retorno do método ```getFile ()``` e o destino do arquivo.
+``` getText ()```, ``` getUpdateType ()```, ``` getContent ()```, ``` getUserId ()```, ``` getUsername ()```, ``` getFirstName ()```, ``` getLastName ()```, ``` getFullName ()``` - Nome completo do usuário; ``` getLanguageCode ()``` - [ID de idioma do usuário](https://en.wikipedia.org/wiki/IETF_language_tag); ``` getMessageId ()```, ``` getChatId ()```, ``` getMediaType ()``` - Tipo de mídia, _photo, animation, audio, document, sticker, video, video_note, voice, contact, dice, game, poll, venue, location, invoice_; ``` getCallbackQueryId ()```, ``` getChatType ()``` - Tipo de chat, _private, group, supergroup, channel_; ``` saveFile ()``` - Download de um arquivo, recebe como parâmetro o retorno do método ```getFile ()``` e o destino do arquivo, ```setSecretToken``` - Define um token de segurança usado em requisições webhook(_secret_token_), ```checkSecretToken``` - Valida _secret_token_
 
 ## Métodos e Botões:
 
@@ -243,3 +265,4 @@ var_dump ($bot->saveFile ($file, __DIR__.'/music.mp3'));
 ```
 
 ### 🔥 [Envie o seu](https://t.me/httd1) bot feito com esse pecote, ele pode ser listado aqui
+• J.M - [@scdownbot](https://t.me/scdownbot)
