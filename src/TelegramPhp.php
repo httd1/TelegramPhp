@@ -55,7 +55,7 @@ class TelegramPhp {
         }
 
         // se o texto e o route definido é um comando ex: /comando, podemos processar
-        if ($this->isCommand ($this->getText ()) && $this->isCommand ($route)){
+        if (!empty ($this->getText ()) && $this->isCommand ($this->getText ()) && $this->isCommand ($route)){
             // separa $route em full, command, complement
             $route_command = $this->matchCommand ($route);
             // separa comando do usário em full, command, complement
@@ -92,12 +92,11 @@ class TelegramPhp {
             throw new \Exception("Regex cannot be empty!");
         }
 
-        $match = $this->match ($regex, $this->getText (), true);
+        if (empty ($this->getText ())) return;
 
-        if (!empty ($match))
-        {
-            $this->runAction ($action, $match);
-        }
+        $match = $this->match ($regex, $this->getText (), true);
+        $this->runAction ($action, $match);
+
     }
 
     /**
@@ -204,33 +203,33 @@ class TelegramPhp {
     public function getText () :?string
     {
         if ($this->getUpdateType () == 'edited_message'){
-            return $this->content ['edited_message']['text'];
+            $text = $this->content ['edited_message']['text'];
         }
         if ($this->getUpdateType () == 'channel_post'){
-            return $this->content ['channel_post']['text'];
+            $text = $this->content ['channel_post']['text'];
         }
         if ($this->getUpdateType () == 'edited_channel_post'){
-            return $this->content ['edited_channel_post']['text'];
+            $text = $this->content ['edited_channel_post']['text'];
         }
         if ($this->getUpdateType () == 'inline_query'){
-            return $this->content ['inline_query']['query'];
+            $text = $this->content ['inline_query']['query'];
         }
         if ($this->getUpdateType () == 'chosen_inline_result'){
-            return $this->content ['chosen_inline_result']['query'];
+            $text = $this->content ['chosen_inline_result']['query'];
         }
         if ($this->getUpdateType () == 'callback_query'){
-            return $this->content ['callback_query']['data'];
+            $text = $this->content ['callback_query']['data'];
         }
-        return $this->content ['message']['text'] ?? null;
+        return $text ?? $this->content ['message']['text'] ?? '';
     }
    
     /**
      * Unique identifier for a user or bot.
      * This number may have more than 32 significant bits and some programming languages may have difficulty/silent defects in interpreting it.
      * 
-     * @return string
+     * @return string|null
      */
-    public function getUserId () :string
+    public function getUserId () :?string
     {
         // if ($this->getUpdateType () == 'edited_message'){
         //     return $this->content ['edited_message']['from']['id'];
@@ -263,6 +262,9 @@ class TelegramPhp {
         //     return $this->content ['chat_join_request']['from']['id'];
         // }
         // return $this->content ['message']['from']['id'];
+
+        if ($this->getUpdateType () == 'poll') return '';
+
         return $this->content [$this->getUpdateType ()]['from']['id'];
     }
 
@@ -334,18 +336,18 @@ class TelegramPhp {
     public function getMessageId () :string
     {
         if ($this->getUpdateType () == 'edited_message'){
-            return $this->content ['edited_message']['message_id'];
+            $message_id = $this->content ['edited_message']['message_id'];
         }
         if ($this->getUpdateType () == 'channel_post'){
-            return $this->content ['channel_post']['message_id'];
+            $message_id = $this->content ['channel_post']['message_id'];
         }
         if ($this->getUpdateType () == 'edited_channel_post'){
-            return $this->content ['edited_channel_post']['message_id'];
+            $message_id = $this->content ['edited_channel_post']['message_id'];
         }
         if ($this->getUpdateType () == 'callback_query'){
-            return $this->content ['callback_query']['message']['message_id'];
+            $message_id = $this->content ['callback_query']['message']['message_id'];
         }
-        return $this->content ['message']['message_id'];
+        return $message_id ?? $this->content ['message']['message_id'];
     }
     
     /**
@@ -357,27 +359,27 @@ class TelegramPhp {
     public function getChatId () :string
     {
         if ($this->getUpdateType () == 'edited_message'){
-            return $this->content ['edited_message']['chat']['id'];
+            $chat_id = $this->content ['edited_message']['chat']['id'];
         }
         if ($this->getUpdateType () == 'channel_post'){
-            return $this->content ['channel_post']['chat']['id'];
+            $chat_id = $this->content ['channel_post']['chat']['id'];
         }
         if ($this->getUpdateType () == 'edited_channel_post'){
-            return $this->content ['edited_channel_post']['chat']['id'];
+            $chat_id = $this->content ['edited_channel_post']['chat']['id'];
         }
         if ($this->getUpdateType () == 'callback_query'){
-            return $this->content ['callback_query']['message']['chat']['id'];
+            $chat_id = $this->content ['callback_query']['message']['chat']['id'];
         }
         if ($this->getUpdateType () == 'my_chat_member'){
-            return $this->content ['my_chat_member']['chat']['id'];
+            $chat_id = $this->content ['my_chat_member']['chat']['id'];
         }
         if ($this->getUpdateType () == 'chat_member'){
-            return $this->content ['chat_member']['chat']['id'];
+            $chat_id = $this->content ['chat_member']['chat']['id'];
         }
         if ($this->getUpdateType () == 'chat_join_request'){
-            return $this->content ['chat_join_request']['chat']['id'];
+            $chat_id = $this->content ['chat_join_request']['chat']['id'];
         }
-        return $this->content ['message']['chat']['id'];
+        return $chat_id ?? $this->content ['message']['chat']['id'];
     }
 
     /**
@@ -455,15 +457,15 @@ class TelegramPhp {
     public function getChatType () :string
     {
         if ($this->getUpdateType () == 'inline_query'){
-            return $this->content ['inline_query']['chat_type'];
+            $chat_type = $this->content ['inline_query']['chat_type'];
         }
         if ($this->getUpdateType () == 'callback_query'){
-            return $this->content ['callback_query']['message']['chat_type'];
+            $chat_type = $this->content ['callback_query']['message']['chat']['type'];
         }
-        if (isset ($this->content [$this->getUpdateType ()])){
-            return $this->content [$this->getUpdateType ()]['chat']['type'];
+        if (isset ($this->content [$this->getUpdateType ()]['chat']['type'])){
+            $chat_type = $this->content [$this->getUpdateType ()]['chat']['type'];
         }
-        return 'private';
+        return $chat_type ?? 'private';
     }
 
     /**

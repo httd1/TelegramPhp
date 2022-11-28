@@ -25,7 +25,7 @@ trait Command {
         return !empty ($match ['command']);
     }
     
-    public function matchComplement (string|null $complement_route, string|null $complement_text)
+    public function matchComplement (?string $complement_route, ?string $complement_text)
     {
         if ($complement_route == '' || $complement_text == '') return [];
 
