@@ -92,15 +92,21 @@ class TelegramPhpTest extends TestCase {
             }
         }');
 
-        $test = false;
+        $test1 = false;
+        $test2 = false;
 
-        $tlg->command ('/category {{category}} {{page}}', function ($tlg, $data) use (&$test){
+        $tlg->command ('/category {{category}} {{page}}', function ($tlg, $data) use (&$test1){
             if ($data ['category'] == 'art' && $data ['page'] == 2){
-                $test = !$test;
+                $test1 = !$test1;
             }
         });
 
-        $this->assertTrue ($test);
+        $tlg->command ('/category', function ($tlg, $data) use (&$test2){
+            $test2 = true;
+        });
+
+        $this->assertTrue ($test1);
+        $this->assertFalse ($test2);
     }
 
     public function testCommandMatch ()
@@ -135,14 +141,20 @@ class TelegramPhpTest extends TestCase {
             }
         }');
 
-        $test = false;
+        $test1 = false;
+        $test2 = false;
 
-        $tlg->commandMatch ('/^\/category (\w+) (\d+)$/', function ($bot, $data) use (&$test){
+        $tlg->commandMatch ('/^\/category (\w+) (\d+)$/', function ($bot, $data) use (&$test1){
             if ($data [1] == 'art' && $data [2] == '2'){
-                $test = !$test;
+                $test1 = !$test1;
             }
         });
+        
+        $tlg->commandMatch ('/^[^\/]+/', function ($bot, $data) use (&$test2){
+            $test2 = true;
+        });
 
-        $this->assertTrue ($test);
+        $this->assertTrue ($test1);
+        $this->assertFalse ($test2);
     }
 }

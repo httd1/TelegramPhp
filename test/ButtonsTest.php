@@ -36,4 +36,12 @@ class ButtonsTest extends TestCase {
 
     }
 
+    public function testKeyBoardButtonRequestUser ()
+    {
+        $keyBoardButtonRequestUser = Buttons::keyBoardButtonRequestUser ('TESTE', 136987);
+        $this->assertSame ($keyBoardButtonRequestUser ['text'], 'TESTE');
+        $this->assertSame ($keyBoardButtonRequestUser ['request_user']['request_id'], 136987);
+        $this->assertFalse (isset ($keyBoardButtonRequestUser ['request_user']['user_is_bot']));
+    }
+
 }

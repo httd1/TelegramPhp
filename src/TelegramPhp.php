@@ -26,6 +26,12 @@ class TelegramPhp {
 
     function __construct ()
     {
+
+        if (!\version_compare (PHP_VERSION, 7.0, '>='))
+        {
+            throw new Exception ('Unsupported version!');
+        }
+
         $this->token = Token::$token;
         $this->initContent ();
     }
@@ -95,6 +101,9 @@ class TelegramPhp {
         if (empty ($this->getText ())) return;
 
         $match = $this->match ($regex, $this->getText (), true);
+
+        if (empty ($match)) return;
+        
         $this->runAction ($action, $match);
 
     }
@@ -263,9 +272,7 @@ class TelegramPhp {
         // }
         // return $this->content ['message']['from']['id'];
 
-        if ($this->getUpdateType () == 'poll') return '';
-
-        return $this->content [$this->getUpdateType ()]['from']['id'];
+        return $this->content [$this->getUpdateType ()]['from']['id'] ?? null;
     }
 
     /**
@@ -281,11 +288,11 @@ class TelegramPhp {
     /**
      * User's or bot's first name
      * 
-     * @return string
+     * @return string|null
      */
-    public function getFirstName () :string
+    public function getFirstName () :?string
     {
-        return $this->content [$this->getUpdateType ()]['from']['first_name'];
+        return $this->content [$this->getUpdateType ()]['from']['first_name'] ?? null;
     }
     
     /**
@@ -293,7 +300,7 @@ class TelegramPhp {
      * 
      * @return string|null
      */
-    public function getLastName () :string|null
+    public function getLastName () :?string
     {
         return $this->content [$this->getUpdateType ()]['from']['last_name'] ?? null;
     }
@@ -301,11 +308,11 @@ class TelegramPhp {
     /**
      * User's or bot's full name
      * 
-     * @return string
+     * @return string|null
      */
-    public function getFullName () :string
+    public function getFullName () :?string
     {
-        return $this->getFirstName ()." ".$this->getLastName ();
+        return trim ($this->getFirstName ()." ".$this->getLastName ()) ?? null;
     }
     
     /**
@@ -313,7 +320,7 @@ class TelegramPhp {
      * 
      * @return string|null
      */
-    public function getUsername () :string|null
+    public function getUsername () :?string
     {
         return $this->content [$this->getUpdateType ()]['from']['username'] ?? null;
     }
@@ -388,7 +395,7 @@ class TelegramPhp {
      * 
      * @return string|null
      */
-    public function getMediaType () :string|null
+    public function getMediaType () :?string
     {
         if (isset ($this->getContent ()[$this->getUpdateType ()]['photo'])){
             return 'photo';
@@ -444,7 +451,7 @@ class TelegramPhp {
      * 
      * @return int|null
      */
-    public function getCallbackQueryId () :string|null
+    public function getCallbackQueryId () :?string
     {
         return $this->content ['callback_query']['id'] ?? null;
     }

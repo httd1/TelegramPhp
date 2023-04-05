@@ -154,10 +154,11 @@ class Buttons {
      * 
      * @return string
      */
-    public static function replyKeyBoardMarkup (array $keyboard, bool $resize_keyboard = false, bool $one_time_keyboard = false, string $input_field_placeholder = '', bool $selective = false) :string
+    public static function replyKeyBoardMarkup (array $keyboard, bool $is_persistent = false, bool $resize_keyboard = false, bool $one_time_keyboard = false, string $input_field_placeholder = '', bool $selective = false) :string
     {
         return json_encode ([
             'keyboard' => $keyboard,
+            'is_persistent' => $is_persistent,
             'resize_keyboard' => $resize_keyboard,
             'one_time_keyboard' => $one_time_keyboard,
             'input_field_placeholder' => $input_field_placeholder,
@@ -248,6 +249,93 @@ class Buttons {
                 'url' => $url
             ]
         ];
+    }
+    
+    /**
+     * Defines the criteria used to request a suitable user.
+     * The identifier of the selected user will be shared with the bot when the corresponding button is pressed.
+     * [More about requesting users](https://core.telegram.org/bots/features#chat-and-user-selection)
+     * 
+     * @param string $text
+     * @param int $request_id
+     * @param bool|null $user_is_bot
+     * @param bool|null $user_is_premium
+     * 
+     * @return array
+     */
+    public static function keyBoardButtonRequestUser (string $text, int $request_id, bool|null $user_is_bot = null, bool|null $user_is_premium = null) :array
+    {
+        $arrayKeyBoard = [
+            'text' => $text,
+            'request_user' => [
+                'request_id' => $request_id
+            ]
+        ];
+
+        if (!\is_null ($user_is_bot)){
+            $arrayKeyBoard ['request_user']['user_is_bot'] = $user_is_bot;
+        }
+        
+        if (!\is_null ($user_is_premium)){
+            $arrayKeyBoard ['request_user']['user_is_premium'] = $user_is_premium;
+        }
+
+        return $arrayKeyBoard;
+    }
+
+    /**
+     * Defines the criteria used to request a suitable chat.
+     * The identifier of the selected chat will be shared with the bot when the corresponding button is pressed.
+     * [More about requesting chats](https://core.telegram.org/bots/features#chat-and-user-selection)
+     * 
+     * @param string $text
+     * @param int $request_id
+     * @param bool $chat_is_channel
+     * @param bool|null $chat_is_forum
+     * @param bool|null $chat_has_username
+     * @param bool|null $chat_is_created
+     * @param array|null $user_administrator_rights
+     * @param array|null $bot_administrator_rights
+     * @param bool|null $bot_is_member
+     * 
+     * @return array
+     */
+    public static function keyBoardButtonRequestChat (string $text, int $request_id, bool $chat_is_channel = false, bool|null $chat_is_forum = null, bool|null $chat_has_username = null, bool|null $chat_is_created = null, array|null $user_administrator_rights = null, array|null $bot_administrator_rights = null, bool|null $bot_is_member = null) :array
+    {
+
+        $arrayKeyBoard = [
+            'text' => $text,
+            'request_chat' => [
+                'request_id' => $request_id,
+                'chat_is_channel' => $chat_is_channel,
+            ]
+        ];
+
+        if (!\is_null ($chat_is_forum)){
+            $arrayKeyBoard ['request_chat']['chat_is_forum'] = $chat_is_forum;
+        }
+        
+        if (!\is_null ($chat_has_username)){
+            $arrayKeyBoard ['request_chat']['chat_has_username'] = $chat_has_username;
+        }
+        
+        if (!\is_null ($chat_is_created)){
+            $arrayKeyBoard ['request_chat']['chat_is_created'] = $chat_is_created;
+        }
+        
+        if (!\is_null ($user_administrator_rights)){
+            $arrayKeyBoard ['request_chat']['user_administrator_rights'] = $user_administrator_rights;
+        }
+        
+        if (!\is_null ($bot_administrator_rights)){
+            $arrayKeyBoard ['request_chat']['bot_administrator_rights'] = $bot_administrator_rights;
+        }
+        
+        if (!\is_null ($bot_is_member)){
+            $arrayKeyBoard ['request_chat']['bot_is_member'] = $bot_is_member;
+        }
+
+        return $arrayKeyBoard;
     }
 
     /**

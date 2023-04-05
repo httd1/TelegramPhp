@@ -778,6 +778,172 @@ class Methods {
     {
         return self::call (__FUNCTION__, $data);
     }
+
+    /**
+     * Use this method to get custom emoji stickers, which can be used as a forum topic icon by any user.
+     * 
+     * @see https://core.telegram.org/bots/api#getforumtopiciconstickers
+     * 
+     * @return array
+     */
+    public static function getForumTopicIconStickers () :array
+    {
+        return self::call (__FUNCTION__, []);
+    }
+    
+    /**
+     * Use this method to create a topic in a forum supergroup chat.
+     * 
+     * @see https://core.telegram.org/bots/api#createforumtopic
+     * 
+     * @param array $data
+     * 
+     * @return array
+     */
+    public static function createForumTopic (array $data) :array
+    {
+        return self::call (__FUNCTION__, $data);
+    }
+    
+    /**
+     * Use this method to edit name and icon of a topic in a forum supergroup chat.
+     * 
+     * @see https://core.telegram.org/bots/api#editforumtopic
+     * 
+     * @param array $data
+     * 
+     * @return array
+     */
+    public static function editForumTopic (array $data) :array
+    {
+        return self::call (__FUNCTION__, $data);
+    }
+    
+    /**
+     * Use this method to close an open topic in a forum supergroup chat.
+     * 
+     * @see https://core.telegram.org/bots/api#closeforumtopic
+     * 
+     * @param array $data
+     * 
+     * @return array
+     */
+    public static function closeForumTopic (array $data) :array
+    {
+        return self::call (__FUNCTION__, $data);
+    }
+    
+    /**
+     * Use this method to reopen a closed topic in a forum supergroup chat.
+     * 
+     * @see https://core.telegram.org/bots/api#reopenforumtopic
+     * 
+     * @param array $data
+     * 
+     * @return array
+     */
+    public static function reopenForumTopic (array $data) :array
+    {
+        return self::call (__FUNCTION__, $data);
+    }
+    
+    /**
+     * Use this method to delete a forum topic along with all its messages in a forum supergroup chat.
+     * 
+     * @see https://core.telegram.org/bots/api#deleteforumtopic
+     * 
+     * @param array $data
+     * 
+     * @return array
+     */
+    public static function deleteForumTopic (array $data) :array
+    {
+        return self::call (__FUNCTION__, $data);
+    }
+    
+    /**
+     * Use this method to clear the list of pinned messages in a forum topic.
+     * 
+     * @see https://core.telegram.org/bots/api#unpinallforumtopicmessages
+     * 
+     * @param array $data
+     * 
+     * @return array
+     */
+    public static function unpinAllForumTopicMessages (array $data) :array
+    {
+        return self::call (__FUNCTION__, $data);
+    }
+    
+    /**
+     * Use this method to edit the name of the 'General' topic in a forum supergroup chat.
+     * 
+     * @see https://core.telegram.org/bots/api#editgeneralforumtopic
+     * 
+     * @param array $data
+     * 
+     * @return array
+     */
+    public static function editGeneralForumTopic (array $data) :array
+    {
+        return self::call (__FUNCTION__, $data);
+    }
+    
+    /**
+     * Use this method to close an open 'General' topic in a forum supergroup chat.
+     * 
+     * @see https://core.telegram.org/bots/api#closegeneralforumtopic
+     * 
+     * @param array $data
+     * 
+     * @return array
+     */
+    public static function closeGeneralForumTopic (array $data) :array
+    {
+        return self::call (__FUNCTION__, $data);
+    }
+    
+    /**
+     * Use this method to reopen a closed 'General' topic in a forum supergroup chat.
+     * 
+     * @see https://core.telegram.org/bots/api#reopengeneralforumtopic
+     * 
+     * @param array $data
+     * 
+     * @return array
+     */
+    public static function reopenGeneralForumTopic (array $data) :array
+    {
+        return self::call (__FUNCTION__, $data);
+    }
+    
+    /**
+     * Use this method to hide the 'General' topic in a forum supergroup chat.
+     * 
+     * @see https://core.telegram.org/bots/api#hidegeneralforumtopic
+     * 
+     * @param array $data
+     * 
+     * @return array
+     */
+    public static function hideGeneralForumTopic (array $data) :array
+    {
+        return self::call (__FUNCTION__, $data);
+    }
+    
+    /**
+     * Use this method to unhide the 'General' topic in a forum supergroup chat.
+     * 
+     * @see https://core.telegram.org/bots/api#unhidegeneralforumtopic
+     * 
+     * @param array $data
+     * 
+     * @return array
+     */
+    public static function unhideGeneralForumTopic (array $data) :array
+    {
+        return self::call (__FUNCTION__, $data);
+    }
     
     /**
      * Use this method to send answers to callback queries sent from inline keyboards.
@@ -832,6 +998,62 @@ class Methods {
      * @return array
      */
     public static function getMyCommands (array $data) :array
+    {
+        return self::call (__FUNCTION__, $data);
+    }
+    
+    /**
+     * Use this method to change the bot's description, which is shown in the chat with the bot if the chat is empty.
+     * 
+     * @see https://core.telegram.org/bots/api#setmydescription
+     * 
+     * @param array $data
+     * 
+     * @return array
+     */
+    public static function setMyDescription (array $data) :array
+    {
+        return self::call (__FUNCTION__, $data);
+    }
+    
+    /**
+     * Use this method to get the current bot description for the given user language.
+     * 
+     * @see https://core.telegram.org/bots/api#getmydescription
+     * 
+     * @param array $data
+     * 
+     * @return array
+     */
+    public static function getMyDescription (array $data) :array
+    {
+        return self::call (__FUNCTION__, $data);
+    }
+    
+    /**
+     * Use this method to change the bot's short description, which is shown on the bot's profile page and is sent together with the link when users share the bot.
+     * 
+     * @see https://core.telegram.org/bots/api#setmyshortdescription
+     * 
+     * @param array $data
+     * 
+     * @return array
+     */
+    public static function setMyShortDescription (array $data) :array
+    {
+        return self::call (__FUNCTION__, $data);
+    }
+    
+    /**
+     * Use this method to get the current bot short description for the given user language.
+     * 
+     * @see https://core.telegram.org/bots/api#getmyshortdescription
+     * 
+     * @param array $data
+     * 
+     * @return array
+     */
+    public static function getMyShortDescription (array $data) :array
     {
         return self::call (__FUNCTION__, $data);
     }
@@ -1096,15 +1318,99 @@ class Methods {
     }
     
     /**
-     * Use this method to set the thumbnail of a sticker set.
+     * Use this method to change the list of emoji assigned to a regular or custom emoji sticker.
      * 
-     * @see https://core.telegram.org/bots/api#setstickersetthumb
+     * @see https://core.telegram.org/bots/api#setstickeremojilist
      * 
      * @param array $data
      * 
      * @return array
      */
-    public static function setStickerSetThumb (array $data) :array
+    public static function setStickerEmojiList (array $data) :array
+    {
+        return self::call (__FUNCTION__, $data);
+    }
+    
+    /**
+     * Use this method to change search keywords assigned to a regular or custom emoji sticker.
+     * 
+     * @see https://core.telegram.org/bots/api#setstickerkeywords
+     * 
+     * @param array $data
+     * 
+     * @return array
+     */
+    public static function setStickerKeywords (array $data) :array
+    {
+        return self::call (__FUNCTION__, $data);
+    }
+    
+    /**
+     * Use this method to change the mask position of a mask sticker.
+     * 
+     * @see https://core.telegram.org/bots/api#setstickermaskposition
+     * 
+     * @param array $data
+     * 
+     * @return array
+     */
+    public static function setStickerMaskPosition (array $data) :array
+    {
+        return self::call (__FUNCTION__, $data);
+    }
+    
+    /**
+     * Use this method to set the title of a created sticker set.
+     * 
+     * @see https://core.telegram.org/bots/api#setstickersettitle
+     * 
+     * @param array $data
+     * 
+     * @return array
+     */
+    public static function setStickerSetTitle (array $data) :array
+    {
+        return self::call (__FUNCTION__, $data);
+    }
+    
+    /**
+     * Use this method to set the thumbnail of a sticker set.
+     * 
+     * @see https://core.telegram.org/bots/api#setStickerSetThumbnail
+     * 
+     * @param array $data
+     * 
+     * @return array
+     */
+    public static function setStickerSetThumbnail (array $data) :array
+    {
+        return self::call (__FUNCTION__, $data);
+    }
+    
+    /**
+     * Use this method to set the thumbnail of a custom emoji sticker set.
+     * 
+     * @see https://core.telegram.org/bots/api#setcustomemojistickersetthumbnail
+     * 
+     * @param array $data
+     * 
+     * @return array
+     */
+    public static function setCustomEmojiStickerSetThumbnail (array $data) :array
+    {
+        return self::call (__FUNCTION__, $data);
+    }
+    
+    /**
+     * Use this method to delete a sticker set that was created by the bot.
+     * 
+     * @see https://core.telegram.org/bots/api#deletestickerset
+     * 
+     * @param array $data
+     * 
+     * @return array
+     */
+    public static function deleteStickerSet (array $data) :array
     {
         return self::call (__FUNCTION__, $data);
     }
