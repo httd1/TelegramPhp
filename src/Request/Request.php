@@ -27,7 +27,7 @@ class Request {
         curl_setopt ($curl, CURLOPT_RETURNTRANSFER, true);
 
         curl_setopt ($curl, CURLOPT_HTTPHEADER, [
-            'User-Agent' => 'github.com/httd1/TelegramPhp'
+            'User-Agent: github.com/httd1/TelegramPhp'
         ]);
 
         if ($this->default_method_request == 'POST')
