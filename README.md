@@ -160,7 +160,7 @@ $tlg->commandMatch ('/^https?:\/\/t\.me\/\w{5,}$/', '\MyNamespace\TelegramBot:ex
 
 ## Alguns dos métodos disponíveis:
 
-``` getText ()```, ``` getUpdateType ()```, ``` getContent ()```, ``` getUserId ()```, ``` getUsername ()```, ``` getFirstName ()```, ``` getLastName ()```, ``` getFullName ()``` - Nome completo do usuário; ``` getLanguageCode ()``` - [ID de idioma do usuário](https://en.wikipedia.org/wiki/IETF_language_tag); ``` getMessageId ()```, ``` getChatId ()```, ``` getMediaType ()``` - Tipo de mídia, _photo, animation, audio, document, sticker, video, video_note, voice, contact, dice, game, poll, venue, location, invoice_; ``` getCallbackQueryId ()```, ``` getChatType ()``` - Tipo de chat, _private, group, supergroup, channel_; ``` saveFile ()``` - Download de um arquivo, recebe como parâmetro o retorno do método ```getFile ()``` e o destino do arquivo, ```setSecretToken``` - Define um token de segurança usado em requisições Webhook(_secret_token_); ```checkSecretToken``` - Verifica _secret_token_ definido com secret token da requisição.
+``` getText ()```, ``` getUpdateType ()```, ``` getContent ()```, ``` getUserId ()```, ``` getUsername ()```, ``` getFirstName ()```, ``` getLastName ()```, ``` getFullName ()``` - Nome completo do usuário; ``` getLanguageCode ()``` - [ID de idioma do usuário](https://en.wikipedia.org/wiki/IETF_language_tag); ``` getMessageId ()```, ``` getChatId ()```, ``` getMediaType ()``` - Tipo de mídia, _photo, animation, audio, document, sticker, story, video, video_note, voice, contact, dice, game, poll, venue, location, invoice_; ``` getCallbackQueryId ()```, ``` getChatType ()``` - Tipo de chat, _private, group, supergroup, channel_; ``` saveFile ()``` - Download de um arquivo, recebe como parâmetro o retorno do método ```getFile ()``` e o destino do arquivo, ```setSecretToken``` - Define um token de segurança usado em requisições Webhook(_secret_token_); ```checkSecretToken``` - Verifica _secret_token_ definido com secret token da requisição.
 
 ## Métodos e Botões:
 
@@ -264,5 +264,5 @@ $file = Methods::getFile ([
 var_dump ($bot->saveFile ($file, __DIR__.'/music.mp3'));
 ```
 
-### 🔥 [Envie o seu](https://t.me/httd1) bot feito com esse pecote, ele pode ser listado aqui
-• J.M - [@scdownbot](https://t.me/scdownbot)
+### 🔥 [Envie o seu](https://t.me/httd1) bot feito com esse pacote, ele pode ser listado aqui
+• J.M - [@scdownbot](https://t.me/scdownbot) | [@twitterdlrobot](https://t.me/twitterdlrobot) | [@rastreiorobot](https://t.me/rastreiorobot) | [@btn_bot](https://t.me/btn_bot)

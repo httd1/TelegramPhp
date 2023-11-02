@@ -412,6 +412,9 @@ class TelegramPhp {
         if (isset ($this->getContent ()[$this->getUpdateType ()]['sticker'])){
             return 'sticker';
         }
+        if (isset ($this->getContent ()[$this->getUpdateType ()]['story'])){
+            return 'story';
+        }
         if (isset ($this->getContent ()[$this->getUpdateType ()]['video'])){
             return 'video';
         }

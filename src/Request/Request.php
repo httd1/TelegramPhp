@@ -26,6 +26,10 @@ class Request {
         curl_setopt ($curl, CURLOPT_SSL_VERIFYHOST, false);
         curl_setopt ($curl, CURLOPT_RETURNTRANSFER, true);
 
+        curl_setopt ($curl, CURLOPT_HTTPHEADER, [
+            'User-Agent' => 'github.com/httd1/TelegramPhp'
+        ]);
+
         if ($this->default_method_request == 'POST')
         {
             curl_setopt($curl, CURLOPT_POST, true);
@@ -37,7 +41,11 @@ class Request {
 
         if ($result === false)
         {
-            throw new \Exception(curl_error ($curl));
+            return [
+                'ok' => false,
+                'curl_error' => curl_error ($curl),
+                'curl_errno' => curl_errno ($curl),
+            ];
         }
 
         $resultJson = json_decode ($result, true);

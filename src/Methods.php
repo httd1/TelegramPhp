@@ -6,9 +6,6 @@ use \TelegramPhp\Request\Request;
 
 class Methods {
 
-    /** @var $_handler \Request */
-    public static $_handler;
-
     /**
      * Call a method for request in api.
      * 
@@ -20,11 +17,12 @@ class Methods {
      */
     public static function call (string $method, array $data, string $method_request = 'POST') :array
     {
-        if (is_null (self::$_handler)){
-            self::$_handler = new Request;
-            self::$_handler->setMethodRequest ($method_request);
-        }
-        return self::$_handler->request ($method, $data);
+        
+        $_handler = new Request;
+        $_handler->setMethodRequest ($method_request);
+        
+        return $_handler->request ($method, $data);
+        
     }
     
     /**
@@ -946,6 +944,21 @@ class Methods {
     }
     
     /**
+     * Use this method to clear the list of pinned messages in a General forum topic.
+     * The bot must be an administrator in the chat for this to work and must have the can_pin_messages administrator right in the supergroup.
+     * 
+     * @see https://core.telegram.org/bots/api#unpinallgeneralforumtopicmessages
+     * 
+     * @param array $data
+     * 
+     * @return array
+     */
+    public static function unpinAllGeneralForumTopicMessages (array $data) :array
+    {
+        return self::call (__FUNCTION__, $data);
+    }
+    
+    /**
      * Use this method to send answers to callback queries sent from inline keyboards.
      * 
      * @see https://core.telegram.org/bots/api#answercallbackquery
@@ -998,6 +1011,34 @@ class Methods {
      * @return array
      */
     public static function getMyCommands (array $data) :array
+    {
+        return self::call (__FUNCTION__, $data);
+    }
+    
+    /**
+     * Use this method to change the bot's name.
+     * 
+     * @see https://core.telegram.org/bots/api#setmyname
+     * 
+     * @param array $data
+     * 
+     * @return array
+     */
+    public static function setMyName (array $data) :array
+    {
+        return self::call (__FUNCTION__, $data);
+    }
+    
+    /**
+     * Use this method to get the current bot name for the given user language.
+     * 
+     * @see https://core.telegram.org/bots/api#getmyname
+     * 
+     * @param array $data
+     * 
+     * @return array
+     */
+    public static function getMyName (array $data) :array
     {
         return self::call (__FUNCTION__, $data);
     }
