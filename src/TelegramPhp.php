@@ -24,6 +24,11 @@ class TelegramPhp {
      */
     public $content;
 
+    /**
+     * @var bool
+     */
+    private $hasCommand = false;
+
     function __construct ()
     {
 
@@ -46,6 +51,22 @@ class TelegramPhp {
     }
 
     /**
+     * Command default executed when there aren't command defined.
+     * 
+     * @param $action
+     * 
+     * @return void
+     */
+    public function commandDefault ($action) :void
+    {
+        
+        if ($this->hasCommand == false && !empty ($this->getText ())){
+            $this->runAction ($action);
+        }
+
+    }
+
+    /**
      * Execute a callback to a command.
      * 
      * @param string $route
@@ -64,21 +85,24 @@ class TelegramPhp {
         if (!empty ($this->getText ()) && $this->isCommand ($this->getText ()) && $this->isCommand ($route)){
             // separa $route em full, command, complement
             $route_command = $this->matchCommand ($route);
-            // separa comando do usário em full, command, complement
+            // separa comando do usuário em full, command, complement
             $text_command = $this->matchCommand ($this->getText ());
             
-            $data = $this->matchComplement ($route_command ['complement'], $text_command ['complement']);
-
             if ($this->complementEquals ($route_command ['complement'], $text_command ['complement'])){
+
+                $data = $this->matchComplement ($route_command ['complement'], $text_command ['complement']);
+
                 // /comando é o mesmo em $this->getText () e $route
                 if ($route_command ['command'] == $text_command ['command']){
                     $this->runAction ($action, $data);
+                    return;
                 }
             }
         }else {
             // é uma mensagem normal, compara com o route
             if ($this->getText () == $route){
                 $this->runAction ($action, []);
+                return;
             }
         }
     }
@@ -98,14 +122,16 @@ class TelegramPhp {
             throw new \Exception("Regex cannot be empty!");
         }
 
-        if (empty ($this->getText ())) return;
+        if (!empty ($this->getText ())){
 
-        $match = $this->match ($regex, $this->getText (), true);
+            $match = $this->match ($regex, $this->getText (), true);
 
-        if (empty ($match)) return;
+            if (!empty ($match)){
+                $this->runAction ($action, $match);
+                return;
+            }
+        }
         
-        $this->runAction ($action, $match);
-
     }
 
     /**
@@ -121,6 +147,8 @@ class TelegramPhp {
             $obj = new $class;
             $obj->$method ($this, $data);
         }
+
+        if ($this->hasCommand == false) $this->hasCommand = true;
     }
 
     /**

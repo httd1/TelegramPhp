@@ -44,3 +44,5 @@ $tlg->setContent ('{
 $tlg->command ('/start', 'MarkdownBot:start');
 $tlg->command ('/help', 'MarkdownBot:help');
 $tlg->commandMatch ('/^[^\/]+/', 'MarkdownBot:markdownText');
+
+$tlg->commandDefault ('MarkdownBot:defaultResponse');

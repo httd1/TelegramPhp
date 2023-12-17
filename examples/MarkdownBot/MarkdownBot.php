@@ -46,4 +46,12 @@ class MarkdownBot {
 
     }
 
+    public function defaultResponse ($bot)
+    {
+        Methods::sendMessage ([
+            'chat_id' => $bot->getChatId (),
+            'text' => 'Send /help or /start'
+        ]);
+    }
+
 }

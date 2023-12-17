@@ -83,6 +83,16 @@ $tlg->commandMatch ('/^\/ok$/', function ($bot){
   ]);
 
 });
+
+// commandDefault aways in the end of code!
+$tlg->commandDefault (function ($bot){
+
+  Methods::sendMessage ([
+    'chat_id' => $bot->getChatId (),
+    'text' => 'Chose a command /start, /info with id, name or username'
+  ]);
+
+});
 ```
 
 ## 🔒 Segurança
@@ -108,9 +118,9 @@ if ($tlg->checkSecretToken () == false){
 ```
 
 ## Respondendo comandos
-Use os métodos ```command ()``` ou ```commandMatch ()``` para capturar comandos enviados ao bot, uma funcão de callback ou um método de uma classe será executado para esse comando.
+Use os métodos ```command ()```, ```commandMatch ()``` ou ```commandDefault``` para capturar comandos enviados ao bot, uma funcão de callback ou um método de uma classe será executado para esse comando.
 
-- ```command ()``` - Para comandos padrão _/comando_ ou qualquer string simples que você considera um comando, um 👍 por exemplo! Usando ```{{param}}``` você pode nomear parâmetros que espera receber no comando.
+- ```command ()``` - Para comandos padrão _/comando_ ou qualquer string simples que você considera um comando, um '👍' por exemplo! Usando ```{{param}}``` você pode nomear parâmetros que espera receber no comando.
 
 ```php
 $tlg->command ('👍', function ($bot){
@@ -127,13 +137,13 @@ $tlg->command ('/colors {{color_1}} {{color_2}} {{color_3}}', function ($bot, $d
 });
 
 // run the colors method of ClassBot class
-$tlg->command ('/colors {{color_1}} {{color_2}} {{color_3}}', 'ClassBot:methodColors');
+// $tlg->command ('/colors {{color_1}} {{color_2}} {{color_3}}', 'ClassBot:methodColors');
 
 // for namespace use '\MyNamespace\ClassBot:colors'
-$tlg->command ('/colors {{color_1}} {{color_2}} {{color_3}}', '\MyNamespace\ClassBot:colors');
+// $tlg->command ('/colors {{color_1}} {{color_2}} {{color_3}}', '\MyNamespace\ClassBot:colors');
 ```
 
-- ```commandMatch ()``` - Para comandos que seguem um padrão diferente, comandos que casam com uma regex expecifica, [urls do telegram](https://regex101.com/r/Ddqz3q/1) por exemplo!
+- ```commandMatch ()``` - Para comandos que seguem um padrão diferente, comandos que casam com uma expresão regular expecifica, [urls do telegram](https://regex101.com/r/Ddqz3q/1) por exemplo!
 
 ```php
 // telegram urls https://t.me/botfather, https://t.me/TelegramBR
@@ -144,23 +154,35 @@ $tlg->commandMatch ('/^https?:\/\/t\.me\/\w{5,}$/', function ($bot, $data){
 
 });
 
-$tlg->commandMatch ('/^https?:\/\/t\.me\/\w{5,}$/', function ($bot, $data){
+// run the executeLinks method of TelegramBot class
+// $tlg->commandMatch ('/^https?:\/\/t\.me\/\w{5,}$/', 'TelegramBot:executeLinks');
 
-  // $data [0]
-  // process command...
+// for namespace use '\MyNamespace\ClassBot:colors'
+// $tlg->commandMatch ('/^https?:\/\/t\.me\/\w{5,}$/', '\MyNamespace\TelegramBot:executeLinks');
+```
+
+- ```commandDefault ()``` - Comando executado por padrão quando não existe nehuma correspondência com _command_ ou _commandMatch_.
+  
+```php
+
+// ...command
+// ...commandMatch
+
+// in the end of code!
+$tlg->commandDefault (function ($bot){
+  
+  // send default message
 
 });
 
-// run the executeLinks method of TelegramBot class
-$tlg->commandMatch ('/^https?:\/\/t\.me\/\w{5,}$/', 'TelegramBot:executeLinks');
+// $tlg->commandDefault ('ControllerBot:default');
 
-// for namespace use '\MyNamespace\ClassBot:colors'
-$tlg->commandMatch ('/^https?:\/\/t\.me\/\w{5,}$/', '\MyNamespace\TelegramBot:executeLinks');
+
 ```
 
 ## Alguns dos métodos disponíveis:
 
-``` getText ()```, ``` getUpdateType ()```, ``` getContent ()```, ``` getUserId ()```, ``` getUsername ()```, ``` getFirstName ()```, ``` getLastName ()```, ``` getFullName ()``` - Nome completo do usuário; ``` getLanguageCode ()``` - [ID de idioma do usuário](https://en.wikipedia.org/wiki/IETF_language_tag); ``` getMessageId ()```, ``` getChatId ()```, ``` getMediaType ()``` - Tipo de mídia, _photo, animation, audio, document, sticker, story, video, video_note, voice, contact, dice, game, poll, venue, location, invoice_; ``` getCallbackQueryId ()```, ``` getChatType ()``` - Tipo de chat, _private, group, supergroup, channel_; ``` saveFile ()``` - Download de um arquivo, recebe como parâmetro o retorno do método ```getFile ()``` e o destino do arquivo, ```setSecretToken``` - Define um token de segurança usado em requisições Webhook(_secret_token_); ```checkSecretToken``` - Verifica _secret_token_ definido com secret token da requisição.
+``` getText ()```, ``` getUpdateType ()```, ``` getContent ()```, ``` getUserId ()```, ``` getUsername ()```, ``` getFirstName ()```, ``` getLastName ()```, ``` getFullName ()``` - Nome completo do usuário; ``` getLanguageCode ()``` - [ID de idioma do usuário](https://en.wikipedia.org/wiki/IETF_language_tag); ``` getMessageId ()```, ``` getChatId ()```, ``` getMediaType ()``` - Tipo de mídia, _photo, animation, audio, document, sticker, story, video, video_note, voice, contact, dice, game, poll, venue, location, invoice_; ``` getCallbackQueryId ()```, ``` getChatType ()``` - Tipo de chat, _private, group, supergroup, channel_; ``` saveFile ()``` - Download de um arquivo, recebe como parâmetro o retorno do método ```getFile ()``` e o destino do arquivo; ```setSecretToken ()``` - Define um token de segurança usado em requisições Webhook(_secret_token_); ```checkSecretToken ()``` - Verifica _secret_token_ definido com secret token da requisição.
 
 ## Métodos e Botões:
 

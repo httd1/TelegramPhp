@@ -157,4 +157,56 @@ class TelegramPhpTest extends TestCase {
         $this->assertTrue ($test1);
         $this->assertFalse ($test2);
     }
+
+    public function testCommandDefault (){
+
+        $tlg = new TelegramPhp ();
+        $tlg->setContent ('{
+        "update_id":264419871,
+            "message":{
+                "message_id":40385,
+                "from":{
+                        "id":275123569,
+                        "is_bot":false,
+                        "first_name":"J.M",
+                        "username":"httd1",
+                        "language_code":"pt-br"
+                    },
+                "chat":{
+                        "id":275123569,
+                        "first_name":"J.M",
+                        "username":"httd1",
+                        "type":"private"
+                    },
+                "date":1665229721,
+                "text":"\/category",
+                "entities":[
+                    {
+                        "offset":0,
+                        "length":9,
+                        "type":"bot_command"
+                    }
+                ]
+            }
+        }');
+
+        $test1 = '';
+
+        $tlg->command ('/start', function ($bot) use (&$test1){
+            $test1 = 'command1';
+        });
+        
+        // This command doesn't executed because there aren't options
+        $tlg->command ('/category {{option_1}} {{option_2}}', function ($bot, $data) use (&$test1){
+            if ($data ['option_1'] == 'art' && $data ['option_2'] == '2'){
+                $test1 = 'command2';
+            }
+        });
+        
+        $tlg->commandDefault (function ($bot) use (&$test1){
+            $test1 = 'commandDefault';
+        });
+
+        $this->assertEquals ('commandDefault', $test1);
+    }
 }
