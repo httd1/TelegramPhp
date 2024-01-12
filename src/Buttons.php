@@ -263,12 +263,13 @@ class Buttons {
      * 
      * @return array
      */
-    public static function keyBoardButtonRequestUser (string $text, int $request_id, bool|null $user_is_bot = null, bool|null $user_is_premium = null) :array
+    public static function keyBoardButtonRequestUser (string $text, int $request_id, bool|null $user_is_bot = null, bool|null $user_is_premium = null, int $max_quantity = 1) :array
     {
         $arrayKeyBoard = [
             'text' => $text,
-            'request_user' => [
-                'request_id' => $request_id
+            'request_users' => [
+                'request_id' => $request_id,
+                'max_quantity' => $max_quantity
             ]
         ];
 

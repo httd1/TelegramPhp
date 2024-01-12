@@ -186,7 +186,7 @@ $tlg->commandDefault (function ($bot){
 
 ## Métodos e Botões:
 
-Como já viu em exemplos acima ☝ na classe estática ```Methods``` estão disponíveis todos os mótodos da api do Telegram, [lista completa aqui](https://core.telegram.org/bots/api#available-methods), temos outra classe estática ```Buttons``` para criação de botões inline(embutido na mensagem) e de teclado.
+Como já viu em exemplos acima ☝ na classe estática ```Methods``` estão disponíveis todos os métodos da api do Telegram, [lista completa aqui](https://core.telegram.org/bots/api#available-methods), temos outra classe estática ```Buttons``` para criação de botões inline(embutido na mensagem) e botões de teclado.
 
 ![](https://i.imgur.com/0ArtHn9.jpg)
 
@@ -232,6 +232,35 @@ Methods::sendMessage ([
 - ```forceReply ()``` - Força uma resposta da mensagem, [documentação](https://core.telegram.org/bots/api#forcereply)
 
 - ```replyKeyboardRemove ()``` - Remove o teclado personalizado e mostra o teclado padrão do dispositivo, [documentação](https://core.telegram.org/bots/api#replykeyboardremove)
+
+## Reação a mensagens
+Bots podem reagir às mensagens por emojis personalizados ou emojis simples como 👍, 👌, 🔥, 😍...  
+[Você pode ver lista completa de reações disponíveis aqui](https://core.telegram.org/bots/api#reactiontypeemoji)  
+Temos uma classe estática ```Reaction``` para reagir a mensagens.
+
+- Reagindo com ❤  
+![Reagindo com ❤](https://i.imgur.com/I1GVoxF.jpg)
+```php
+Methods::setMessageReaction ([
+  'chat_id' => $bot->getChatId (),
+  'message_id' => $bot->getMessageId (),
+  'reaction' => Reaction::reactionType ([
+      Reaction::reactionTypeEmoji ('❤'),
+  ])
+]);
+```
+
+- Reagindo com emoji personalizado ![5445284980978621387](https://i.imgur.com/3RwZ5oW.gif)  
+![Reagindo com emoji personalizado](https://i.imgur.com/Vz5Eqhh.jpg)
+```php
+Methods::setMessageReaction ([
+  'chat_id' => $bot->getChatId (),
+  'message_id' => $bot->getMessageId (),
+  'reaction' => Reaction::reactionType ([
+      Reaction::reactionTypeCustomEmoji ('5445284980978621387'),
+  ])
+]);
+```
 
 ## Enviando arquivos:
 
@@ -286,5 +315,9 @@ $file = Methods::getFile ([
 var_dump ($bot->saveFile ($file, __DIR__.'/music.mp3'));
 ```
 
-### 🔥 [Envie o seu](https://t.me/httd1) bot feito com esse pacote, ele pode ser listado aqui
-• J.M - [@scdownbot](https://t.me/scdownbot) | [@twitterdlrobot](https://t.me/twitterdlrobot) | [@rastreiorobot](https://t.me/rastreiorobot) | [@btn_bot](https://t.me/btn_bot)
+### 🔥 [Envie os seus](https://t.me/httd1) bots feito com esse pacote, ele pode ser listado aqui!
+• J.M  
+- [@scdownbot](https://t.me/scdownbot) (+5K Usuários)
+- [@twitterdlrobot](https://t.me/twitterdlrobot) (+1K Usuários)
+- [@rastreiorobot](https://t.me/rastreiorobot) (+3K Usuários)
+- [@btn_bot](https://t.me/btn_bot) (+500 Usuários)

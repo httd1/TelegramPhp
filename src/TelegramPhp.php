@@ -18,6 +18,11 @@ class TelegramPhp {
      * @var string
      */
     private $token;
+
+    /**
+     * @var string
+     */
+    private $secret_token;
     
     /**
      * @var array
@@ -257,50 +262,68 @@ class TelegramPhp {
         if ($this->getUpdateType () == 'callback_query'){
             $text = $this->content ['callback_query']['data'];
         }
-        return $text ?? $this->content ['message']['text'] ?? '';
+        return $text ?? $this->content ['message']['text'] ?? null;
     }
    
     /**
      * Unique identifier for a user or bot.
      * This number may have more than 32 significant bits and some programming languages may have difficulty/silent defects in interpreting it.
      * 
-     * @return string|null
+     * @return int|null
      */
-    public function getUserId () :?string
+    public function getUserId () :?int
     {
-        // if ($this->getUpdateType () == 'edited_message'){
-        //     return $this->content ['edited_message']['from']['id'];
-        // }
-        // if ($this->getUpdateType () == 'channel_post'){
-        //     return $this->content ['channel_post']['from']['id'];
-        // }
-        // if ($this->getUpdateType () == 'edited_channel_post'){
-        //     return $this->content ['edited_channel_post']['from']['id'];
-        // }
-        // if ($this->getUpdateType () == 'inline_query'){
-        //     return $this->content ['inline_query']['from']['id'];
-        // }
-        // if ($this->getUpdateType () == 'chosen_inline_result'){
-        //     return $this->content ['chosen_inline_result']['from']['id'];
-        // }
-        // if ($this->getUpdateType () == 'callback_query'){
-        //     return $this->content ['callback_query']['from']['id'];
-        // }
-        // if ($this->getUpdateType () == 'shipping_query'){
-        //     return $this->content ['shipping_query']['from']['id'];
-        // }
-        // if ($this->getUpdateType () == 'pre_checkout_query'){
-        //     return $this->content ['pre_checkout_query']['from']['id'];
-        // }
-        // if ($this->getUpdateType () == 'my_chat_member' || $this->getUpdateType () == 'chat_member'){
-        //     return $this->content ['my_chat_member']['from']['id'];
-        // }
-        // if ($this->getUpdateType () == 'chat_join_request'){
-        //     return $this->content ['chat_join_request']['from']['id'];
-        // }
-        // return $this->content ['message']['from']['id'];
+        if ($this->getUpdateType () == 'edited_message'){
+            $user_id = $this->content ['edited_message']['from']['id'];
+        }
+        if ($this->getUpdateType () == 'channel_post'){
+            $user_id = $this->content ['channel_post']['from']['id'];
+        }
+        if ($this->getUpdateType () == 'edited_channel_post'){
+            $user_id = $this->content ['edited_channel_post']['from']['id'];
+        }
+        if ($this->getUpdateType () == 'inline_query'){
+            $user_id = $this->content ['inline_query']['from']['id'];
+        }
+        if ($this->getUpdateType () == 'chosen_inline_result'){
+            $user_id = $this->content ['chosen_inline_result']['from']['id'];
+        }
+        if ($this->getUpdateType () == 'callback_query'){
+            $user_id = $this->content ['callback_query']['from']['id'];
+        }
+        if ($this->getUpdateType () == 'shipping_query'){
+            $user_id = $this->content ['shipping_query']['from']['id'];
+        }
+        if ($this->getUpdateType () == 'pre_checkout_query'){
+            $user_id = $this->content ['pre_checkout_query']['from']['id'];
+        }
+        if ($this->getUpdateType () == 'my_chat_member'){
+            $user_id = $this->content ['my_chat_member']['from']['id'];
+        }
+        if ($this->getUpdateType () == 'chat_member'){
+            $user_id = $this->content ['chat_member']['from']['id'];
+        }
+        if ($this->getUpdateType () == 'chat_join_request'){
+            $user_id = $this->content ['chat_join_request']['from']['id'];
+        }
+        if ($this->getUpdateType () == 'chat_boost'){
+            $user_id = $this->content ['chat_boost']['boost']['source']['user']['id'];
+        }
+        if ($this->getUpdateType () == 'removed_chat_boost'){
+            $user_id = $this->content ['removed_chat_boost']['source']['user']['id'];
+        }
 
-        return $this->content [$this->getUpdateType ()]['from']['id'] ?? null;
+        if ($this->getUpdateType () == 'message_reaction' 
+        && isset ($this->content ['message_reaction']['user'])){
+            $user_id = $this->content ['message_reaction']['user']['id'];
+        }
+        
+        if ($this->getUpdateType () == 'poll_answer' 
+        && isset ($this->content ['poll_answer']['user'])){
+            $user_id = $this->content ['poll_answer']['user']['id'];
+        }
+
+        return $user_id ?? $this->content ['message']['from']['id'] ?? null;
     }
 
     /**
@@ -366,9 +389,9 @@ class TelegramPhp {
     /**
      * Unique message identifier inside a chat.
      * 
-     * @return string
+     * @return int|null
      */
-    public function getMessageId () :string
+    public function getMessageId () :?int
     {
         if ($this->getUpdateType () == 'edited_message'){
             $message_id = $this->content ['edited_message']['message_id'];
@@ -379,19 +402,26 @@ class TelegramPhp {
         if ($this->getUpdateType () == 'edited_channel_post'){
             $message_id = $this->content ['edited_channel_post']['message_id'];
         }
+        if ($this->getUpdateType () == 'message_reaction'){
+            $message_id = $this->content ['message_reaction']['message_id'];
+        }
+        if ($this->getUpdateType () == 'message_reaction_count'){
+            $message_id = $this->content ['message_reaction_count']['message_id'];
+        }
         if ($this->getUpdateType () == 'callback_query'){
             $message_id = $this->content ['callback_query']['message']['message_id'];
         }
-        return $message_id ?? $this->content ['message']['message_id'];
+        
+        return $message_id ?? $this->content ['message']['message_id'] ?? null;
     }
     
     /**
      * Unique identifier for a chat.
      * This number may have more than 32 significant bits and some programming languages may have difficulty/silent defects in interpreting it.
      * 
-     * @return string
+     * @return int|null
      */
-    public function getChatId () :string
+    public function getChatId () :?int
     {
         if ($this->getUpdateType () == 'edited_message'){
             $chat_id = $this->content ['edited_message']['chat']['id'];
@@ -401,6 +431,12 @@ class TelegramPhp {
         }
         if ($this->getUpdateType () == 'edited_channel_post'){
             $chat_id = $this->content ['edited_channel_post']['chat']['id'];
+        }
+        if ($this->getUpdateType () == 'message_reaction'){
+            $chat_id = $this->content ['message_reaction']['chat']['id'];
+        }
+        if ($this->getUpdateType () == 'message_reaction_count'){
+            $chat_id = $this->content ['message_reaction_count']['chat']['id'];
         }
         if ($this->getUpdateType () == 'callback_query'){
             $chat_id = $this->content ['callback_query']['message']['chat']['id'];
@@ -414,7 +450,19 @@ class TelegramPhp {
         if ($this->getUpdateType () == 'chat_join_request'){
             $chat_id = $this->content ['chat_join_request']['chat']['id'];
         }
-        return $chat_id ?? $this->content ['message']['chat']['id'];
+        if ($this->getUpdateType () == 'chat_boost'){
+            $chat_id = $this->content ['chat_boost']['chat']['id'];
+        }
+        if ($this->getUpdateType () == 'removed_chat_boost'){
+            $chat_id = $this->content ['removed_chat_boost']['chat']['id'];
+        }
+        
+        if ($this->getUpdateType () == 'poll_answer' 
+        && isset ($this->content ['poll_answer']['voter_chat'])){
+            $chat_id = $this->content ['poll_answer']['voter_chat']['id'];
+        }
+        
+        return $chat_id ?? $this->content ['message']['chat']['id'] ?? null;
     }
 
     /**
@@ -482,7 +530,7 @@ class TelegramPhp {
      * 
      * @return int|null
      */
-    public function getCallbackQueryId () :?string
+    public function getCallbackQueryId () :?int
     {
         return $this->content ['callback_query']['id'] ?? null;
     }

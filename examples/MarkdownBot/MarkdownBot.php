@@ -12,6 +12,15 @@ class MarkdownBot {
             'parse_mode' => 'html',
             'disable_web_page_preview' => true
         ]);
+
+        Methods::setMessageReaction ([
+            'chat_id' => $bot->getChatId (),
+            'message_id' => $bot->getMessageId (),
+            'reaction' => Reaction::reactionType ([
+                Reaction::reactionTypeEmoji ('👏'),
+            ])
+        ]);
+
     }
 
     public function help ($bot)

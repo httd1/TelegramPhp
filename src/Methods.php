@@ -120,6 +120,20 @@ class Methods {
     }
     
     /**
+     * Use this method to forward messages of any kind.
+     * 
+     * @see https://core.telegram.org/bots/api#forwardmessages
+     * 
+     * @param array $data
+     * 
+     * @return array
+     */
+    public static function forwardMessages (array $data) :array
+    {
+        return self::call (__FUNCTION__, $data);
+    }
+    
+    /**
      * Use this method to copy messages of any kind.
      * 
      * @see https://core.telegram.org/bots/api#copymessage
@@ -129,6 +143,20 @@ class Methods {
      * @return array
      */
     public static function copyMessage (array $data) :array
+    {
+        return self::call (__FUNCTION__, $data);
+    }
+    
+    /**
+     * Use this method to copy messages of any kind.
+     * 
+     * @see https://core.telegram.org/bots/api#copymessages
+     * 
+     * @param array $data
+     * 
+     * @return array
+     */
+    public static function copyMessages (array $data) :array
     {
         return self::call (__FUNCTION__, $data);
     }
@@ -353,6 +381,20 @@ class Methods {
      * @return array
      */
     public static function sendChatAction (array $data) :array
+    {
+        return self::call (__FUNCTION__, $data);
+    }
+    
+    /**
+     * Use this method to change the chosen reactions on a message.
+     * 
+     * @see https://core.telegram.org/bots/api#setmessagereaction
+     * 
+     * @param array $data
+     * 
+     * @return array
+     */
+    public static function setMessageReaction (array $data) :array
     {
         return self::call (__FUNCTION__, $data);
     }
@@ -973,6 +1015,20 @@ class Methods {
     }
     
     /**
+     * Use this method to get the list of boosts added to a chat by a user.
+     * 
+     * @see https://core.telegram.org/bots/api#getuserchatboosts
+     * 
+     * @param array $data
+     * 
+     * @return array
+     */
+    public static function getUserChatBoosts (array $data) :array
+    {
+        return self::call (__FUNCTION__, $data);
+    }
+    
+    /**
      * Use this method to change the list of the bot's commands.
      * See https://core.telegram.org/bots#commands for more details about bot commands.
      * 
@@ -1242,6 +1298,20 @@ class Methods {
      * @return array
      */
     public static function deleteMessage (array $data) :array
+    {
+        return self::call (__FUNCTION__, $data);
+    }
+    
+    /**
+     * Use this method to delete multiple messages simultaneously
+     * 
+     * @see https://core.telegram.org/bots/api#deleteMessages
+     * 
+     * @param array $data
+     * 
+     * @return array
+     */
+    public static function deleteMessages (array $data) :array
     {
         return self::call (__FUNCTION__, $data);
     }

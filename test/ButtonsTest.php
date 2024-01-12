@@ -1,7 +1,5 @@
 <?php
 
-include __DIR__.'/../vendor/autoload.php';
-
 use PHPUnit\Framework\TestCase;
 use TelegramPhp\TelegramPhp;
 use TelegramPhp\Buttons;
@@ -40,7 +38,7 @@ class ButtonsTest extends TestCase {
     {
         $keyBoardButtonRequestUser = Buttons::keyBoardButtonRequestUser ('TESTE', 136987);
         $this->assertSame ($keyBoardButtonRequestUser ['text'], 'TESTE');
-        $this->assertSame ($keyBoardButtonRequestUser ['request_user']['request_id'], 136987);
+        $this->assertSame ($keyBoardButtonRequestUser ['request_users']['request_id'], 136987);
         $this->assertFalse (isset ($keyBoardButtonRequestUser ['request_user']['user_is_bot']));
     }
 
