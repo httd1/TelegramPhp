@@ -88,7 +88,7 @@ class Methods {
      */
     public static function getWebhookInfo () :array
     {
-        return self::call (__FUNCTION__, $data);
+        return self::call (__FUNCTION__, []);
     }
 
     /**

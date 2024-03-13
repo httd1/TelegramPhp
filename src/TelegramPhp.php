@@ -3,7 +3,7 @@
 namespace TelegramPhp;
 
 use \TelegramPhp\Config\Token;
-use \TelegramPhp\Request\Request;
+use \TelegramPhp\Config\Logs;
 
 /**
  * Package for Telegram Bot API in php, TelegramPhp
@@ -39,7 +39,7 @@ class TelegramPhp {
 
         if (!\version_compare (PHP_VERSION, 7.0, '>='))
         {
-            throw new Exception ('Unsupported version!');
+            throw new \Exception ('Unsupported version!');
         }
 
         $this->token = Token::$token;
@@ -58,15 +58,16 @@ class TelegramPhp {
     /**
      * Command default executed when there aren't command defined.
      * 
-     * @param $action
+     * @param callable|string $action
      * 
      * @return void
      */
-    public function commandDefault ($action) :void
+    public function commandDefault (callable|string $action) :void
     {
         
         if ($this->hasCommand == false && !empty ($this->getText ())){
             $this->runAction ($action);
+            $this->callLogs ($action, 'default', []);
         }
 
     }
@@ -75,11 +76,11 @@ class TelegramPhp {
      * Execute a callback to a command.
      * 
      * @param string $route
-     * @param $action
+     * @param callable|string $action
      * 
      * @return void
      */
-    public function command (string $route, $action) :void
+    public function command (string $route, callable|string $action) :void
     {
 
         if (empty ($route)){
@@ -100,6 +101,7 @@ class TelegramPhp {
                 // /comando é o mesmo em $this->getText () e $route
                 if ($route_command ['command'] == $text_command ['command']){
                     $this->runAction ($action, $data);
+                    $this->callLogs ($action, $route, $data);
                     return;
                 }
             }
@@ -107,6 +109,7 @@ class TelegramPhp {
             // é uma mensagem normal, compara com o route
             if ($this->getText () == $route){
                 $this->runAction ($action, []);
+                $this->callLogs ($action, $route, []);
                 return;
             }
         }
@@ -116,11 +119,11 @@ class TelegramPhp {
      * Executes a regular expression on a text sent to the bot.
      * 
      * @param string $regex
-     * @param $action
+     * @param callable|string $action
      * 
      * @return void
      */
-    public function commandMatch (string $regex, $action) :void
+    public function commandMatch (string $regex, callable|string $action) :void
     {
 
         if (empty ($regex)){
@@ -133,6 +136,7 @@ class TelegramPhp {
 
             if (!empty ($match)){
                 $this->runAction ($action, $match);
+                $this->callLogs ($action, $regex, $match);
                 return;
             }
         }
@@ -140,20 +144,53 @@ class TelegramPhp {
     }
 
     /**
-     * @param $action
+     * @param callable|string $action
      * @param array $data
      */
-    function runAction ($action, array $data = [])
+    function runAction (callable|string $action, array $data = []) :void
     {
         if (is_callable ($action)){
             $action ($this, $data);
         }else {
-            list ($class, $method) = $this->match ('/[^:]+/', $action, true);
-            $obj = new $class;
-            $obj->$method ($this, $data);
+            list ($class, $method) = $this->match ('/[^:@]+/', $action, true);
+            // classe existe!
+            if (\class_exists ($class)){
+
+                $obj = new $class;
+
+                // método existe!
+                if (\method_exists ($obj, $method)){
+                    $obj->$method ($this, $data); //chama método
+                }else {
+                    throw new \Exception ("Method \"{$method}\" doesn't exist in '{$class}' class");
+                }
+
+            }else {
+                throw new \Exception ("Class \"{$class}\" doesn't exist");
+            }
         }
 
         if ($this->hasCommand == false) $this->hasCommand = true;
+    }
+
+    /**
+     * Call log class
+     * 
+     * @param callable|string $action
+     * @param string $route
+     * @param array $data
+     * 
+     * @return void
+     */
+    public function callLogs (callable|string $action, string $route, array $data) :void
+    {
+
+        foreach (Logs::$logCommands as $log){
+            $clssLog = new $log;
+            $action = \is_callable ($action) ? 'function' : $action;
+            $clssLog->log ($this, $action, $route, $data);
+        }
+
     }
 
     /**
@@ -194,7 +231,7 @@ class TelegramPhp {
      * 
      * @return void
      */
-    public function setSecretToken (string $secretToken)
+    public function setSecretToken (string $secretToken) :void
     {
         $this->secret_token = $secretToken;
     }

@@ -315,9 +315,30 @@ $file = Methods::getFile ([
 var_dump ($bot->saveFile ($file, __DIR__.'/music.mp3'));
 ```
 
-### 🔥 [Envie os seus](https://t.me/httd1) bots feito com esse pacote, ele pode ser listado aqui!
+## Logs
+Você pode obter logs de interação com o bot, basta usar a classe estática ```\TelegramPhp\Config\Logs```, por ela você pode definir uma ou mais classes que irão receber e processar os dados de interação do usuário.
+
+- Classe responsável por processar os logs.
+```php
+class LogCommands {
+  // method log is required
+  public function log ($telegramPhp, $action, $route, $data){
+    // process data
+  }
+}
+```
+
+- Definindo a classe que irá processar os logs.
+```php
+\TelegramPhp\Config\Logs::catchLogs ([
+  LogCommands::class,
+  // LogStatistics::class
+]);
+```
+
+### 🔥 [Envie os bots feitos com esse pacote](https://t.me/httd1), ele pode ser listado aqui!
 • J.M  
-- [@scdownbot](https://t.me/scdownbot) (+5K Usuários)
-- [@twitterdlrobot](https://t.me/twitterdlrobot) (+1K Usuários)
-- [@rastreiorobot](https://t.me/rastreiorobot) (+3K Usuários)
-- [@btn_bot](https://t.me/btn_bot) (+500 Usuários)
+- [@scdownbot](https://t.me/scdownbot) (+18K Usuários)
+- [@twitterdlrobot](https://t.me/twitterdlrobot) (+11K Usuários)
+- [@rastreiorobot](https://t.me/rastreiorobot) (+14K Usuários)
+- [@btn_bot](https://t.me/btn_bot) (+200 Usuários)

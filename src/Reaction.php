@@ -11,7 +11,7 @@ class Reaction {
      * 
      * @return string
      */
-    public static function reactionType (array $reaction)
+    public static function reactionType (array $reaction) :string
     {
         return \json_encode ($reaction);
     }
@@ -25,7 +25,7 @@ class Reaction {
      * 
      * @return array
      */
-    public static function reactionTypeEmoji (string $emoji)
+    public static function reactionTypeEmoji (string $emoji) :array
     {
         return [
             'type' => 'emoji',
@@ -42,7 +42,7 @@ class Reaction {
      * 
      * @return array
      */
-    public static function reactionTypeCustomEmoji (string $custom_emoji_id)
+    public static function reactionTypeCustomEmoji (string $custom_emoji_id) :array
     {
         return [
             'type' => 'custom_emoji',

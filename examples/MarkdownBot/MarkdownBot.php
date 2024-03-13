@@ -1,6 +1,7 @@
 <?php
 
 use \TelegramPhp\Methods;
+use \TelegramPhp\Reaction;
 
 class MarkdownBot {
 

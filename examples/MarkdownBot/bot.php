@@ -1,15 +1,18 @@
 <?php
 
 include __DIR__.'/../../vendor/autoload.php';
+include __DIR__.'/logs/LogComandos.php';
 include __DIR__.'/MarkdownBot.php';
 
 use \TelegramPhp\TelegramPhp;
-use \TelegramPhp\Methods;
-use \TelegramPhp\Buttons;
 
 \TelegramPhp\Config\Token::setToken ('343008038:AAGIgeZ6jG6EDJwxU5Slu1KrC2LHxwe1Nlk');
 
 $tlg = new TelegramPhp ();
+
+\TelegramPhp\Config\Logs::catchLogs ([
+    LogComandos::class,
+]);
 
 // debug
 $tlg->setContent ('{
@@ -43,6 +46,6 @@ $tlg->setContent ('{
 
 $tlg->command ('/start', 'MarkdownBot:start');
 $tlg->command ('/help', 'MarkdownBot:help');
-$tlg->commandMatch ('/^[^\/]+/', 'MarkdownBot:markdownText');
+$tlg->commandMatch ('/^(?<texto>[^\/]+)/', 'MarkdownBot:markdownText');
 
 $tlg->commandDefault ('MarkdownBot:defaultResponse');

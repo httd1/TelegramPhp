@@ -4,6 +4,9 @@ namespace TelegramPhp\Config;
 
 class Token {
 
+    /**
+     * @var string
+     */
     static $token;
 
     /**
