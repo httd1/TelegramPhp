@@ -451,6 +451,16 @@ class TelegramPhp {
         
         return $message_id ?? $this->content ['message']['message_id'] ?? null;
     }
+
+    /**
+     * For replies in the same chat and message thread, the original message.
+     * 
+     * @return int|null
+     */
+    public function getReplyToMessageId () :?int
+    {
+        return $this->content ['message']['reply_to_message']['message_id'] ?? null;
+    }
     
     /**
      * Unique identifier for a chat.
