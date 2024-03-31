@@ -275,6 +275,16 @@ class TelegramPhp {
     }
 
     /**
+     * A point on the map, [see here the parameters](https://core.telegram.org/bots/api#location)
+     * 
+     * @return array|null
+     */
+    public function getLocation () :?array
+    {
+        return $this->content ['message']['location'] ?? [];
+    }
+
+    /**
      * For text messages, the actual UTF-8 text of the message.
      * 
      * @return string|null
