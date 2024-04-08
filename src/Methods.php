@@ -1027,6 +1027,20 @@ class Methods {
     {
         return self::call (__FUNCTION__, $data);
     }
+
+    /**
+     * Use this method to get information about the connection of the bot with a business account.
+     * 
+     * @see https://core.telegram.org/bots/api#getbusinessconnection
+     * 
+     * @param array $data
+     * 
+     * @return array
+     */
+    public static function getBusinessConnection (array $data) :array
+    {
+        return self::call (__FUNCTION__, $data);
+    }
     
     /**
      * Use this method to change the list of the bot's commands.
@@ -1424,6 +1438,20 @@ class Methods {
      * @return array
      */
     public static function deleteStickerFromSet (array $data) :array
+    {
+        return self::call (__FUNCTION__, $data);
+    }
+
+    /**
+     * Use this method to replace an existing sticker in a sticker set with a new one.
+     * 
+     * @see https://core.telegram.org/bots/api#replacestickerinset
+     * 
+     * @param array $data
+     * 
+     * @return array
+     */
+    public static function replaceStickerInSet (array $data) :array
     {
         return self::call (__FUNCTION__, $data);
     }

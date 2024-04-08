@@ -250,7 +250,7 @@ class Buttons {
             ]
         ];
     }
-    
+
     /**
      * Defines the criteria used to request a suitable user.
      * The identifier of the selected user will be shared with the bot when the corresponding button is pressed.
@@ -260,16 +260,20 @@ class Buttons {
      * @param int $request_id
      * @param bool|null $user_is_bot
      * @param bool|null $user_is_premium
+     * @param int|null $max_quantity
+     * @param bool|null $request_name
+     * @param bool|null $request_username
+     * @param bool|null $request_photo
      * 
      * @return array
      */
-    public static function keyBoardButtonRequestUser (string $text, int $request_id, bool|null $user_is_bot = null, bool|null $user_is_premium = null, int $max_quantity = 1) :array
+    public static function keyBoardButtonRequestUser (string $text, int $request_id, bool|null $user_is_bot = null, bool|null $user_is_premium = null, int|null $max_quantity = null, bool|null $request_name = null, bool|null $request_username = null, bool|null $request_photo = null) :array
     {
         $arrayKeyBoard = [
             'text' => $text,
             'request_users' => [
                 'request_id' => $request_id,
-                'max_quantity' => $max_quantity
+                'max_quantity' => $max_quantity ?? 1
             ]
         ];
 
@@ -279,6 +283,18 @@ class Buttons {
         
         if (!\is_null ($user_is_premium)){
             $arrayKeyBoard ['request_user']['user_is_premium'] = $user_is_premium;
+        }
+
+        if (!\is_null ($request_name)){
+            $arrayKeyBoard ['request_user']['request_name'] = $request_name;
+        }
+
+        if (!\is_null ($request_username)){
+            $arrayKeyBoard ['request_user']['request_username'] = $request_username;
+        }
+
+        if (!\is_null ($request_photo)){
+            $arrayKeyBoard ['request_user']['request_photo'] = $request_photo;
         }
 
         return $arrayKeyBoard;
@@ -298,10 +314,13 @@ class Buttons {
      * @param array|null $user_administrator_rights
      * @param array|null $bot_administrator_rights
      * @param bool|null $bot_is_member
+     * @param bool|null $request_title
+     * @param bool|null $request_username
+     * @param bool|null $request_photo
      * 
      * @return array
      */
-    public static function keyBoardButtonRequestChat (string $text, int $request_id, bool $chat_is_channel = false, bool|null $chat_is_forum = null, bool|null $chat_has_username = null, bool|null $chat_is_created = null, array|null $user_administrator_rights = null, array|null $bot_administrator_rights = null, bool|null $bot_is_member = null) :array
+    public static function keyBoardButtonRequestChat (string $text, int $request_id, bool $chat_is_channel = false, bool|null $chat_is_forum = null, bool|null $chat_has_username = null, bool|null $chat_is_created = null, array|null $user_administrator_rights = null, array|null $bot_administrator_rights = null, bool|null $bot_is_member = null, bool|null $request_title = null, bool|null $request_username = null, bool|null $request_photo = null) :array
     {
 
         $arrayKeyBoard = [
@@ -334,6 +353,18 @@ class Buttons {
         
         if (!\is_null ($bot_is_member)){
             $arrayKeyBoard ['request_chat']['bot_is_member'] = $bot_is_member;
+        }
+
+        if (!\is_null ($request_title)){
+            $arrayKeyBoard ['request_chat']['request_title'] = $request_title;
+        }
+
+        if (!\is_null ($request_username)){
+            $arrayKeyBoard ['request_chat']['request_username'] = $request_username;
+        }
+
+        if (!\is_null ($request_photo)){
+            $arrayKeyBoard ['request_chat']['request_photo'] = $request_photo;
         }
 
         return $arrayKeyBoard;
