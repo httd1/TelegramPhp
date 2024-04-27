@@ -336,6 +336,20 @@ class LogCommands {
 ]);
 ```
 
+## Tipo de Update
+É possível executar uma função/método para um tipo de [Update](https://core.telegram.org/bots/api#update) expecífico enviado pelo Telegram, por exemplo você pode executar uma função que responda a updates do tipo '_my_chat_member_' ou '_chat_member_'.
+
+- Processando updates '_my_chat_member_'
+```php
+$tlg->on ('my_chat_member', function ($bot){
+  // code here
+});
+```
+- Processando updates '_chat_member_'
+```php
+$tlg->on ('chat_member', 'TelegramBot:myChatMember');
+```
+
 ### 🔥 [Envie os bots feitos com esse pacote](https://t.me/httd1), ele pode ser listado aqui!
 • J.M  
 - [@scdownbot](https://t.me/scdownbot) (+18K Usuários)

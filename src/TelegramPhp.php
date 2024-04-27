@@ -84,7 +84,7 @@ class TelegramPhp {
     {
 
         if (empty ($route)){
-            throw new \Exception("Route cannot be empty!");
+            throw new \Exception ("Route cannot be empty!");
         }
 
         // se o texto e o route definido é um comando ex: /comando, podemos processar
@@ -102,6 +102,9 @@ class TelegramPhp {
                 if ($route_command ['command'] == $text_command ['command']){
                     $this->runAction ($action, $data);
                     $this->callLogs ($action, $route, $data);
+
+                    if ($this->hasCommand == false) $this->hasCommand = true;
+
                     return;
                 }
             }
@@ -110,6 +113,9 @@ class TelegramPhp {
             if ($this->getText () == $route){
                 $this->runAction ($action, []);
                 $this->callLogs ($action, $route, []);
+
+                if ($this->hasCommand == false) $this->hasCommand = true;
+
                 return;
             }
         }
@@ -127,7 +133,7 @@ class TelegramPhp {
     {
 
         if (empty ($regex)){
-            throw new \Exception("Regex cannot be empty!");
+            throw new \Exception ("Regex cannot be empty!");
         }
 
         if (!empty ($this->getText ())){
@@ -137,10 +143,30 @@ class TelegramPhp {
             if (!empty ($match)){
                 $this->runAction ($action, $match);
                 $this->callLogs ($action, $regex, $match);
+
+                if ($this->hasCommand == false) $this->hasCommand = true;
+
                 return;
             }
         }
         
+    }
+
+    /**
+     * Runs $action when an update sent by Telegram is the same of $update.
+     * 
+     * @param string $update
+     * @param callable|string $action
+     * 
+     * @return void
+     */
+    public function on (string $update, callable|string $action) : void
+    {
+
+        if ($this->getUpdateType () == $update){
+            $this->runAction ($action, []);
+        }
+
     }
 
     /**
@@ -170,7 +196,6 @@ class TelegramPhp {
             }
         }
 
-        if ($this->hasCommand == false) $this->hasCommand = true;
     }
 
     /**
@@ -291,28 +316,36 @@ class TelegramPhp {
      */
     public function getText () :?string
     {
-        if ($this->getUpdateType () == 'edited_message'){
+        if ($this->getUpdateType () == 'edited_message' 
+        && isset ($this->content['edited_message']['text'])){
             $text = $this->content ['edited_message']['text'];
         }
-        if ($this->getUpdateType () == 'channel_post'){
+        if ($this->getUpdateType () == 'channel_post' 
+        && isset ($this->content ['channel_post']['text'])){
             $text = $this->content ['channel_post']['text'];
         }
-        if ($this->getUpdateType () == 'edited_channel_post'){
+        if ($this->getUpdateType () == 'edited_channel_post' 
+        && isset ($this->content ['edited_channel_post']['text'])){
             $text = $this->content ['edited_channel_post']['text'];
         }
-        if ($this->getUpdateType () == 'business_message'){
+        if ($this->getUpdateType () == 'business_message' 
+        && isset ($this->content ['business_message']['text'])){
             $text = $this->content ['business_message']['text'];
         }
-        if ($this->getUpdateType () == 'edited_business_message'){
+        if ($this->getUpdateType () == 'edited_business_message' 
+        && isset ($this->content ['edited_business_message']['text'])){
             $text = $this->content ['edited_business_message']['text'];
         }
-        if ($this->getUpdateType () == 'inline_query'){
+        if ($this->getUpdateType () == 'inline_query' 
+        && isset ($this->content ['inline_query']['query'])){
             $text = $this->content ['inline_query']['query'];
         }
-        if ($this->getUpdateType () == 'chosen_inline_result'){
+        if ($this->getUpdateType () == 'chosen_inline_result' 
+        && isset ($this->content ['chosen_inline_result']['query'])){
             $text = $this->content ['chosen_inline_result']['query'];
         }
-        if ($this->getUpdateType () == 'callback_query'){
+        if ($this->getUpdateType () == 'callback_query' 
+        && isset ($this->content ['callback_query']['data'])){
             $text = $this->content ['callback_query']['data'];
         }
 
@@ -327,62 +360,78 @@ class TelegramPhp {
      */
     public function getUserId () :?int
     {
-        if ($this->getUpdateType () == 'edited_message'){
+        if ($this->getUpdateType () == 'edited_message' 
+        && isset ($this->content ['edited_message']['from']['id'])){
             $user_id = $this->content ['edited_message']['from']['id'];
         }
-        if ($this->getUpdateType () == 'channel_post'){
+        if ($this->getUpdateType () == 'channel_post' 
+        && isset ($this->content ['channel_post']['from']['id'])){
             $user_id = $this->content ['channel_post']['from']['id'];
         }
-        if ($this->getUpdateType () == 'edited_channel_post'){
+        if ($this->getUpdateType () == 'edited_channel_post' 
+        && isset ($this->content ['edited_channel_post']['from']['id'])){
             $user_id = $this->content ['edited_channel_post']['from']['id'];
         }
-        if ($this->getUpdateType () == 'business_connection'){
+        if ($this->getUpdateType () == 'business_connection' 
+        && isset ($this->content ['business_connection']['user']['id'])){
             $user_id = $this->content ['business_connection']['user']['id'];
         }
-        if ($this->getUpdateType () == 'business_message'){
+        if ($this->getUpdateType () == 'business_message' 
+        && isset ($this->content ['business_message']['from']['id'])){
             $user_id = $this->content ['business_message']['from']['id'];
         }
-        if ($this->getUpdateType () == 'edited_business_message'){
+        if ($this->getUpdateType () == 'edited_business_message' 
+        && isset ($this->content ['edited_business_message']['from']['id'])){
             $user_id = $this->content ['edited_business_message']['from']['id'];
         }
-        if ($this->getUpdateType () == 'inline_query'){
+        if ($this->getUpdateType () == 'inline_query' 
+        && isset ($this->content ['inline_query']['from']['id'])){
             $user_id = $this->content ['inline_query']['from']['id'];
         }
-        if ($this->getUpdateType () == 'chosen_inline_result'){
+        if ($this->getUpdateType () == 'chosen_inline_result' 
+        && isset ($this->content ['chosen_inline_result']['from']['id'])){
             $user_id = $this->content ['chosen_inline_result']['from']['id'];
         }
-        if ($this->getUpdateType () == 'callback_query'){
+        if ($this->getUpdateType () == 'callback_query' 
+        && isset ($this->content ['callback_query']['from']['id'])){
             $user_id = $this->content ['callback_query']['from']['id'];
         }
-        if ($this->getUpdateType () == 'shipping_query'){
+        if ($this->getUpdateType () == 'shipping_query' 
+        && isset ($this->content ['shipping_query']['from']['id'])){
             $user_id = $this->content ['shipping_query']['from']['id'];
         }
-        if ($this->getUpdateType () == 'pre_checkout_query'){
+        if ($this->getUpdateType () == 'pre_checkout_query' 
+        && isset ($this->content ['pre_checkout_query']['from']['id'])){
             $user_id = $this->content ['pre_checkout_query']['from']['id'];
         }
-        if ($this->getUpdateType () == 'my_chat_member'){
+        if ($this->getUpdateType () == 'my_chat_member' 
+        && isset ($this->content ['my_chat_member']['from']['id'])){
             $user_id = $this->content ['my_chat_member']['from']['id'];
         }
-        if ($this->getUpdateType () == 'chat_member'){
+        if ($this->getUpdateType () == 'chat_member' 
+        && isset ($this->content ['chat_member']['from']['id'])){
             $user_id = $this->content ['chat_member']['from']['id'];
         }
-        if ($this->getUpdateType () == 'chat_join_request'){
+        if ($this->getUpdateType () == 'chat_join_request' 
+        && isset ($this->content ['chat_join_request']['from']['id'])){
             $user_id = $this->content ['chat_join_request']['from']['id'];
         }
-        if ($this->getUpdateType () == 'chat_boost'){
+        if ($this->getUpdateType () == 'chat_boost' 
+        && isset ($this->content ['chat_boost']['boost']['source']['user']['id'])){
             $user_id = $this->content ['chat_boost']['boost']['source']['user']['id'];
         }
-        if ($this->getUpdateType () == 'removed_chat_boost'){
+        if ($this->getUpdateType () == 'removed_chat_boost' 
+        && isset ($this->content ['removed_chat_boost']['source']['user']['id'])){
             $user_id = $this->content ['removed_chat_boost']['source']['user']['id'];
         }
 
         if ($this->getUpdateType () == 'message_reaction' 
-        && isset ($this->content ['message_reaction']['user'])){
+        && isset ($this->content ['message_reaction']['user']['id'])){
             $user_id = $this->content ['message_reaction']['user']['id'];
         }
         
         if ($this->getUpdateType () == 'poll_answer' 
-        && isset ($this->content ['poll_answer']['user'])){
+        && isset ($this->content ['poll_answer']['user']['id'])){
             $user_id = $this->content ['poll_answer']['user']['id'];
         }
 
@@ -397,10 +446,10 @@ class TelegramPhp {
     public function getLanguageCode () :string
     {
         if (isset ($this->content [$this->getUpdateType ()]['from']['language_code'])){
-            return $this->content [$this->getUpdateType()]['from']['language_code'];
+            return $this->content [$this->getUpdateType ()]['from']['language_code'];
         }
-        if (isset ($this->content [$this->getUpdateType()]['user']['language_code'])){
-            return $this->content [$this->getUpdateType()]['user']['language_code'];
+        if (isset ($this->content [$this->getUpdateType ()]['user']['language_code'])){
+            return $this->content [$this->getUpdateType ()]['user']['language_code'];
         }
         return 'en';
     }
@@ -413,10 +462,10 @@ class TelegramPhp {
     public function getFirstName () :?string
     {
         if (isset ($this->content [$this->getUpdateType ()]['from']['first_name'])){
-            return $this->content [$this->getUpdateType()]['from']['first_name'];
+            return $this->content [$this->getUpdateType ()]['from']['first_name'];
         }
-        if (isset ($this->content [$this->getUpdateType()]['user']['first_name'])){
-            return $this->content [$this->getUpdateType()]['user']['first_name'];
+        if (isset ($this->content [$this->getUpdateType ()]['user']['first_name'])){
+            return $this->content [$this->getUpdateType ()]['user']['first_name'];
         }
         return null;
     }
@@ -428,11 +477,11 @@ class TelegramPhp {
      */
     public function getLastName () :?string
     {
-        if (isset($this->content [$this->getUpdateType()]['from']['last_name'])) {
-            return $this->content [$this->getUpdateType()]['from']['last_name'];
+        if (isset ($this->content [$this->getUpdateType ()]['from']['last_name'])) {
+            return $this->content [$this->getUpdateType ()]['from']['last_name'];
         }
-        if (isset($this->content [$this->getUpdateType()]['user']['last_name'])) {
-            return $this->content [$this->getUpdateType()]['user']['last_name'];
+        if (isset ($this->content [$this->getUpdateType ()]['user']['last_name'])) {
+            return $this->content [$this->getUpdateType ()]['user']['last_name'];
         }
         return null;
     }
@@ -455,11 +504,11 @@ class TelegramPhp {
      */
     public function getUsername () :?string
     {
-        if (isset($this->content [$this->getUpdateType()]['from']['username'])) {
-            return $this->content [$this->getUpdateType()]['from']['username'];
+        if (isset ($this->content [$this->getUpdateType ()]['from']['username'])) {
+            return $this->content [$this->getUpdateType ()]['from']['username'];
         }
-        if (isset($this->content [$this->getUpdateType()]['user']['username'])) {
-            return $this->content [$this->getUpdateType()]['user']['username'];
+        if (isset ($this->content [$this->getUpdateType ()]['user']['username'])) {
+            return $this->content [$this->getUpdateType ()]['user']['username'];
         }
         return null;
     }
@@ -471,11 +520,11 @@ class TelegramPhp {
      */
     public function isPremium () :bool
     {
-        if (isset($this->content [$this->getUpdateType()]['from']['is_premium'])) {
-            return $this->content [$this->getUpdateType()]['from']['is_premium'];
+        if (isset ($this->content [$this->getUpdateType ()]['from']['is_premium'])) {
+            return $this->content [$this->getUpdateType ()]['from']['is_premium'];
         }
-        if (isset($this->content [$this->getUpdateType()]['user']['is_premium'])) {
-            return $this->content [$this->getUpdateType()]['user']['is_premium'];
+        if (isset ($this->content [$this->getUpdateType ()]['user']['is_premium'])) {
+            return $this->content [$this->getUpdateType ()]['user']['is_premium'];
         }
         return false;
     }
@@ -487,28 +536,36 @@ class TelegramPhp {
      */
     public function getMessageId () :?int
     {
-        if ($this->getUpdateType () == 'edited_message'){
+        if ($this->getUpdateType () == 'edited_message' 
+        && isset ($this->content ['edited_message']['message_id'])){
             $message_id = $this->content ['edited_message']['message_id'];
         }
-        if ($this->getUpdateType () == 'channel_post'){
+        if ($this->getUpdateType () == 'channel_post' 
+        && isset ($this->content['channel_post']['message_id'])){
             $message_id = $this->content ['channel_post']['message_id'];
         }
-        if ($this->getUpdateType () == 'edited_channel_post'){
+        if ($this->getUpdateType () == 'edited_channel_post' 
+        && isset ($this->content['edited_channel_post']['message_id'])){
             $message_id = $this->content ['edited_channel_post']['message_id'];
         }
-        if ($this->getUpdateType () == 'business_message'){
+        if ($this->getUpdateType () == 'business_message' 
+        && isset ($this->content['business_message']['message_id'])){
             $message_id = $this->content ['business_message']['message_id'];
         }
-        if ($this->getUpdateType () == 'business_message'){
+        if ($this->getUpdateType () == 'business_message' 
+        && isset ($this->content['business_message']['message_id'])){
             $message_id = $this->content ['business_message']['message_id'];
         }
-        if ($this->getUpdateType () == 'message_reaction'){
+        if ($this->getUpdateType () == 'message_reaction' 
+        && isset ($this->content['message_reaction']['message_id'])){
             $message_id = $this->content ['message_reaction']['message_id'];
         }
-        if ($this->getUpdateType () == 'message_reaction_count'){
+        if ($this->getUpdateType () == 'message_reaction_count' 
+        && isset ($this->content['message_reaction_count']['message_id'])){
             $message_id = $this->content ['message_reaction_count']['message_id'];
         }
-        if ($this->getUpdateType () == 'callback_query'){
+        if ($this->getUpdateType () == 'callback_query' 
+        && isset ($this->content['callback_query']['message']['message_id'])){
             $message_id = $this->content ['callback_query']['message']['message_id'];
         }
         
@@ -533,54 +590,69 @@ class TelegramPhp {
      */
     public function getChatId () :?int
     {
-        if ($this->getUpdateType () == 'edited_message'){
+        if ($this->getUpdateType () == 'edited_message' 
+        && isset ($this->content ['edited_message']['chat']['id'])){
             $chat_id = $this->content ['edited_message']['chat']['id'];
         }
-        if ($this->getUpdateType () == 'channel_post'){
+        if ($this->getUpdateType () == 'channel_post' 
+        && isset ($this->content ['channel_post']['chat']['id'])){
             $chat_id = $this->content ['channel_post']['chat']['id'];
         }
-        if ($this->getUpdateType () == 'edited_channel_post'){
+        if ($this->getUpdateType () == 'edited_channel_post' 
+        && isset ($this->content ['edited_channel_post']['chat']['id'])){
             $chat_id = $this->content ['edited_channel_post']['chat']['id'];
         }
-        if ($this->getUpdateType () == 'business_connection'){
+        if ($this->getUpdateType () == 'business_connection' 
+        && isset ($this->content ['business_connection']['user_chat_id'])){
             $chat_id = $this->content ['business_connection']['user_chat_id'];
         }
-        if ($this->getUpdateType () == 'business_message'){
+        if ($this->getUpdateType () == 'business_message' 
+        && isset ($this->content ['business_message']['chat']['id'])){
             $chat_id = $this->content ['business_message']['chat']['id'];
         }
-        if ($this->getUpdateType () == 'edited_business_message'){
+        if ($this->getUpdateType () == 'edited_business_message' 
+        && isset ($this->content['edited_business_message']['chat']['id'])){
             $chat_id = $this->content ['edited_business_message']['chat']['id'];
         }
-        if ($this->getUpdateType () == 'deleted_business_messages'){
+        if ($this->getUpdateType () == 'deleted_business_messages' 
+        && isset ($this->content ['deleted_business_messages']['chat']['id'])){
             $chat_id = $this->content ['deleted_business_messages']['chat']['id'];
         }
-        if ($this->getUpdateType () == 'message_reaction'){
+        if ($this->getUpdateType () == 'message_reaction' 
+        && isset ($this->content ['message_reaction']['chat']['id'])){
             $chat_id = $this->content ['message_reaction']['chat']['id'];
         }
-        if ($this->getUpdateType () == 'message_reaction_count'){
+        if ($this->getUpdateType () == 'message_reaction_count' 
+        && isset ($this->content ['message_reaction_count']['chat']['id'])){
             $chat_id = $this->content ['message_reaction_count']['chat']['id'];
         }
-        if ($this->getUpdateType () == 'callback_query'){
+        if ($this->getUpdateType () == 'callback_query' 
+        && isset ($this->content ['callback_query']['message']['chat']['id'])){
             $chat_id = $this->content ['callback_query']['message']['chat']['id'];
         }
-        if ($this->getUpdateType () == 'my_chat_member'){
+        if ($this->getUpdateType () == 'my_chat_member' 
+        && isset ($this->content ['my_chat_member']['chat']['id'])){
             $chat_id = $this->content ['my_chat_member']['chat']['id'];
         }
-        if ($this->getUpdateType () == 'chat_member'){
+        if ($this->getUpdateType () == 'chat_member' 
+        && isset ($this->content['chat_member']['chat']['id'])){
             $chat_id = $this->content ['chat_member']['chat']['id'];
         }
-        if ($this->getUpdateType () == 'chat_join_request'){
+        if ($this->getUpdateType () == 'chat_join_request' 
+        && isset ($this->content ['chat_join_request']['chat']['id'])){
             $chat_id = $this->content ['chat_join_request']['chat']['id'];
         }
-        if ($this->getUpdateType () == 'chat_boost'){
+        if ($this->getUpdateType () == 'chat_boost' 
+        && isset ($this->content ['chat_boost']['chat']['id'])){
             $chat_id = $this->content ['chat_boost']['chat']['id'];
         }
-        if ($this->getUpdateType () == 'removed_chat_boost'){
+        if ($this->getUpdateType () == 'removed_chat_boost' 
+        && isset ($this->content ['removed_chat_boost']['chat']['id'])){
             $chat_id = $this->content ['removed_chat_boost']['chat']['id'];
         }
         
         if ($this->getUpdateType () == 'poll_answer' 
-        && isset ($this->content ['poll_answer']['voter_chat'])){
+        && isset ($this->content ['poll_answer']['voter_chat']['id'])){
             $chat_id = $this->content ['poll_answer']['voter_chat']['id'];
         }
         
@@ -693,7 +765,7 @@ class TelegramPhp {
             throw new \Exception ('$getFile is required!');
         }
 
-        $url_file = "https://api.telegram.org/file/bot".Token::$token."/".$getFile ['result']['file_path'];
+        $url_file = "https://api.telegram.org/file/bot" . Token::$token . "/" . $getFile ['result']['file_path'];
         $fopen = fopen ($dest, 'wb');
 
         $curl = curl_init ($url_file);

@@ -44,6 +44,13 @@ $tlg->setContent ('{
     }
 }');
 
+// get and process reactions
+$tlg->on ('message_reaction', function ($bot){
+
+    print_r ($bot->getContent ());
+
+});
+
 $tlg->command ('/start', 'MarkdownBot:start');
 $tlg->command ('/help', 'MarkdownBot:help');
 $tlg->commandMatch ('/^(?<texto>[^\/]+)/', 'MarkdownBot:markdownText');
