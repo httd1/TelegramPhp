@@ -32,7 +32,7 @@ class TelegramPhp {
     /**
      * @var bool
      */
-    private $hasCommand = false;
+    public $hasCommand = false;
 
     function __construct ()
     {
