@@ -344,6 +344,9 @@ class LogCommands {
 $tlg->on ('my_chat_member', function ($bot){
   // code here
 });
+// $tlg->on (['message_reaction', 'message'], function ($bot){
+  // code here
+// });
 ```
 - Processando updates '_chat_member_'
 ```php

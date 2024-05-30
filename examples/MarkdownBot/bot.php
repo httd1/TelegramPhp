@@ -45,7 +45,7 @@ $tlg->setContent ('{
 }');
 
 // get and process reactions
-$tlg->on ('message_reaction', function ($bot){
+$tlg->on (['message_reaction', 'message'], function ($bot){
 
     print_r ($bot->getContent ());
 

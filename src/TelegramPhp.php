@@ -153,17 +153,24 @@ class TelegramPhp {
     }
 
     /**
-     * Runs $action when an update sent by Telegram is the same of $update.
+     * Runs $action when an update sent by Telegram is the same of $updates.
      * 
-     * @param string $update
+     * @param string|array $updates
      * @param callable|string $action
      * 
      * @return void
      */
-    public function on (string $update, callable|string $action) : void
+    public function on (string|array $updates, callable|string $action) : void
     {
 
-        if ($this->getUpdateType () == $update){
+        // convert to array
+        if (!is_array ($updates)){
+            $updates_list [] = $updates;
+        }else {
+            $updates_list = $updates;
+        }
+
+        if (in_array ($this->getUpdateType (), $updates_list)){
             $this->runAction ($action, []);
         }
 

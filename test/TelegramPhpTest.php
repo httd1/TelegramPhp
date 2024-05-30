@@ -207,4 +207,45 @@ class TelegramPhpTest extends TestCase {
 
         $this->assertEquals ('commandDefault', $test1);
     }
+
+    public function testOn (){
+
+        $tlg = new TelegramPhp();
+        $tlg->setContent('{
+        "update_id": 905605451,
+        "message_reaction": {
+            "chat": {
+                "id": 275123569,
+                "first_name": "J.M",
+                "username": "httd1",
+                "type": "private"
+            },
+            "message_id": 116,
+            "user": {
+                "id": 275123569,
+                "is_bot": false,
+                "first_name": "J.M",
+                "username": "httd1",
+                "language_code": "pt-br"
+            },
+            "date": 1704974812,
+            "old_reaction": [],
+            "new_reaction": [
+                {
+                    "type": "emoji",
+                    "emoji": "👍"
+                }
+                ]
+            }
+        }');
+
+        $valueTest = false;
+
+        $tlg->on (['message_reaction', 'channel_post'], function ($bot) use (&$valueTest){
+            $valueTest = true;
+        });
+
+        $this->assertTrue ($valueTest);
+
+    }
 }
