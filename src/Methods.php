@@ -1641,6 +1641,20 @@ class Methods {
     }
     
     /**
+     * Use this method to refunds a successful payment in [Telegram Stars](https://t.me/BotNews/90).
+     * 
+     * @see https://core.telegram.org/bots/api#refundstarpayment
+     * 
+     * @param array $data
+     * 
+     * @return array
+     */
+    public static function refundStarPayment (array $data) :array
+    {
+        return self::call (__FUNCTION__, $data);
+    }
+    
+    /**
      * Use this method to send a game
      * 
      * @see https://core.telegram.org/bots/api#sendgame
