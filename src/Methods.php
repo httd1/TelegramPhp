@@ -258,6 +258,20 @@ class Methods {
     {
         return self::call (__FUNCTION__, $data);
     }
+
+    /**
+     * Use this method to send paid media to channel chats.
+     * 
+     * @see https://core.telegram.org/bots/api#sendpaidmedia
+     * 
+     * @param array $data
+     * 
+     * @return array
+     */
+    public static function sendPaidMedia (array $data): array
+    {
+        return self::call(__FUNCTION__, $data);
+    }
     
     /**
      * Use this method to send a group of photos, videos, documents or audios as an album.
@@ -1638,6 +1652,20 @@ class Methods {
     public static function answerPreCheckoutQuery (array $data) :array
     {
         return self::call (__FUNCTION__, $data);
+    }
+
+    /**
+     * Returns the bot's Telegram Star transactions in chronological order.
+     * 
+     * @see https://core.telegram.org/bots/api#getstartransactions
+     * 
+     * @param array $data
+     * 
+     * @return array
+     */
+    public static function getStarTransactions (array $data): array
+    {
+        return self::call(__FUNCTION__, $data);
     }
     
     /**
