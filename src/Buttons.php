@@ -132,10 +132,10 @@ class Buttons {
      * 
      * @param string $text
      * @param string $query
-     * @param string $allow_user_chats
-     * @param string $allow_bot_chats
-     * @param string $allow_group_chats
-     * @param string $allow_channel_chats
+     * @param bool $allow_user_chats
+     * @param bool $allow_bot_chats
+     * @param bool $allow_group_chats
+     * @param bool $allow_channel_chats
      * 
      * @return array
      */
