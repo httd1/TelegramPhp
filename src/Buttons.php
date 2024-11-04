@@ -110,7 +110,7 @@ class Buttons {
     }
     
     /**
-     * Optional. If set, pressing the button will insert the bot's username and the specified inline query in the current chat's input field.
+     * Pressing the button will insert the bot's username and the specified inline query in the current chat's input field.
      * May be empty, in which case only the bot's username will be inserted.
      * 
      * @param string $text
@@ -123,6 +123,51 @@ class Buttons {
         return [
             'text' => $text,
             'switch_inline_query_current_chat' => $switch_inline_query_current_chat
+        ];
+    }
+
+    /**
+     * Pressing the button will prompt the user to select one of their chats of the specified type, open that chat and insert the bot's username and the specified inline query in the input field.
+     * Not supported for messages sent on behalf of a Telegram Business account.
+     * 
+     * @param string $text
+     * @param string $query
+     * @param string $allow_user_chats
+     * @param string $allow_bot_chats
+     * @param string $allow_group_chats
+     * @param string $allow_channel_chats
+     * 
+     * @return array
+     */
+    public static function inlineKeyBoardSwitchInlineQueryChosenChat (string $text, string $query = '', bool $allow_user_chats = true, bool $allow_bot_chats = true, bool $allow_group_chats = true, bool $allow_channel_chats = true) :array
+    {
+        return [
+            'text' => $text,
+            'switch_inline_query_chosen_chat' => [
+                'query' => $query,
+                'allow_user_chats' => $allow_user_chats,
+                'allow_bot_chats' => $allow_bot_chats,
+                'allow_group_chats' => $allow_group_chats,
+                'allow_channel_chats' => $allow_channel_chats
+            ]
+        ];
+    }
+
+    /**
+     * Description of the button that copies the specified text to the clipboard.
+     * 
+     * @param string $text
+     * @param string $copy_text
+     * 
+     * @return array
+     */
+    public static function inlineKeyBoardCopyText (string $text, string $copy_text) :array
+    {
+        return [
+            'text' => $text,
+            'copy_text' => [
+                'text' => $copy_text
+            ]
         ];
     }
     
