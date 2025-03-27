@@ -38,7 +38,7 @@ class Buttons {
      * Data to be sent in a [callback query](https://core.telegram.org/bots/api#callbackquery) to the bot when button is pressed, 1-64 bytes.
      * 
      * @param string $text
-     * @param array $callback_data
+     * @param string $callback_data
      * 
      * @return array
      */
