@@ -2,19 +2,18 @@
 
 [![GitHub license](https://img.shields.io/github/license/httd1/TelegramPhp)](https://github.com/httd1/TelegramPhp/blob/main/LICENSE) [![GitHub stars](https://img.shields.io/github/stars/httd1/TelegramPhp)](https://github.com/httd1/TelegramPhp/stargazers)
 
-👌 Read this documentation in Portuguese [here](README-pt.md)
+Esse é um pacote em PHP para uso da API de bots do Telegram.  
+Esse pacote foi pensado para uso exclusivamente por [Webhook](https://core.telegram.org/bots/api#setwebhook), 
+antes do uso leia a documentação completa do Telegram aqui https://core.telegram.org/bots/api
 
-This is a package for the Telegram Bots API.  
-This package was made exclusively for use with [Webhook](https://core.telegram.org/bots/api#setwebhook).  
-Before using this package, please read the entire Telegram Bot API documentation: https://core.telegram.org/bots/api
 
-## Requirements
+## Requisitos
 
-- PHP >= 7.0
+- PHP>=7.0
   - cURL
   - JSON
 
-## Installation
+## Instalação
 
 ```shell
 composer require httd1/TelegramPhp
@@ -96,11 +95,8 @@ $tlg->commandDefault (function ($bot){
 });
 ```
 
-## 🔒 Secure
-
-Telegram provides ways to verify if a request actually comes from its servers ([read more here](https://core.telegram.org/bots/api#setwebhook)).   
-You can set a ```secret_token``` in your webhook, and Telegram will include this token in the _X-Telegram-Bot-Api-Secret-Token_ header.
-This package allows you to validate your ```secret_token```.
+## 🔒 Segurança
+O Telegram oferece algumas formas de validar se o request recebido veio realmente de seus servidores ([mais aqui](https://core.telegram.org/bots/api#setwebhook)), você pode definir um ```secret_token``` no seu Webhook, todas as requisições terá seu token secreto no header _X-Telegram-Bot-Api-Secret-Token_, usando esse pacote você também pode validar o seu ```secret_token```.
 
 ```php
 
@@ -121,10 +117,10 @@ if ($tlg->checkSecretToken () == false){
 
 ```
 
-## Handling Commands
-Use the methods ```command ()```, ```commandMatch ()``` or ```commandDefault``` to catch and handle commands sent to your bot. Each method receives a callback or class method.
+## Respondendo comandos
+Use os métodos ```command ()```, ```commandMatch ()``` ou ```commandDefault``` para capturar comandos enviados ao bot, uma funcão de callback ou um método de uma classe será executado para esse comando.
 
-- ```command ()``` - Use for standard Telegram commands like _/comando_ or simple inputs that you consider a command, such as '👍'. You can use ```{{param}}``` to define expected parameters.
+- ```command ()``` - Para comandos padrão _/comando_ ou qualquer string simples que você considera um comando, um '👍' por exemplo! Usando ```{{param}}``` você pode nomear parâmetros que espera receber no comando.
 
 ```php
 $tlg->command ('👍', function ($bot){
@@ -147,7 +143,7 @@ $tlg->command ('/colors {{color_1}} {{color_2}} {{color_3}}', function ($bot, $d
 // $tlg->command ('/colors {{color_1}} {{color_2}} {{color_3}}', '\MyNamespace\ClassBot:colors');
 ```
 
-- ```commandMatch ()``` - For some kind of commands, you can build you own pattern using regular expression such as [telegram urls](https://regex101.com/r/Ddqz3q/1) for example!
+- ```commandMatch ()``` - Para comandos que seguem um padrão diferente, comandos que casam com uma expresão regular expecifica, [urls do telegram](https://regex101.com/r/Ddqz3q/1) por exemplo!
 
 ```php
 // telegram urls https://t.me/botfather, https://t.me/TelegramBR
@@ -165,7 +161,7 @@ $tlg->commandMatch ('/^https?:\/\/t\.me\/\w{5,}$/', function ($bot, $data){
 // $tlg->commandMatch ('/^https?:\/\/t\.me\/\w{5,}$/', '\MyNamespace\TelegramBot:executeLinks');
 ```
 
-- ```commandDefault ()``` - Fallback handler when no command matches.
+- ```commandDefault ()``` - Comando executado por padrão quando não existe nehuma correspondência com _command_ ou _commandMatch_.
   
 ```php
 
@@ -184,13 +180,13 @@ $tlg->commandDefault (function ($bot){
 
 ```
 
-## Some methods available:
+## Alguns dos métodos disponíveis:
 
-``` getText ()```, ``` getUpdateType ()```, ``` getContent ()```, ``` getUserId ()```, ``` getUsername ()```, ``` getFirstName ()```, ``` getLastName ()```, ``` getFullName ()``` - User full name; ``` getLanguageCode ()``` - [List of languages ID](https://en.wikipedia.org/wiki/IETF_language_tag); ``` getMessageId ()```, ``` getChatId ()```, ``` getMediaType ()``` - Media type, _photo, animation, audio, document, sticker, story, video, video_note, voice, contact, dice, game, poll, venue, location, invoice_; ``` getCallbackQueryId ()```, ``` getChatType ()``` - Chat type, _private, group, supergroup, channel_; ``` saveFile ()``` - Download a file, receive with paramether a return of ```getFile ()``` and the file destination; ```setSecretToken ()``` - Set a token used in Webhook(_secret_token_) updates; ```checkSecretToken ()``` - Checks the _secret_token_ set on the the webhook.
+``` getText ()```, ``` getUpdateType ()```, ``` getContent ()```, ``` getUserId ()```, ``` getUsername ()```, ``` getFirstName ()```, ``` getLastName ()```, ``` getFullName ()``` - Nome completo do usuário; ``` getLanguageCode ()``` - [ID de idioma do usuário](https://en.wikipedia.org/wiki/IETF_language_tag); ``` getMessageId ()```, ``` getChatId ()```, ``` getMediaType ()``` - Tipo de mídia, _photo, animation, audio, document, sticker, story, video, video_note, voice, contact, dice, game, poll, venue, location, invoice_; ``` getCallbackQueryId ()```, ``` getChatType ()``` - Tipo de chat, _private, group, supergroup, channel_; ``` saveFile ()``` - Download de um arquivo, recebe como parâmetro o retorno do método ```getFile ()``` e o destino do arquivo; ```setSecretToken ()``` - Define um token de segurança usado em requisições Webhook(_secret_token_); ```checkSecretToken ()``` - Verifica _secret_token_ definido com secret token da requisição.
 
-## Buttons:
+## Métodos e Botões:
 
-Use the static Buttons class to create inline or reply keyboards.
+Como já viu em exemplos acima ☝ na classe estática ```Methods``` estão disponíveis todos os métodos da api do Telegram, [lista completa aqui](https://core.telegram.org/bots/api#available-methods), temos outra classe estática ```Buttons``` para criação de botões inline(embutido na mensagem) e botões de teclado.
 
 ![](https://i.imgur.com/0ArtHn9.jpg)
 
@@ -233,36 +229,17 @@ Methods::sendMessage ([
 ]);
 ```
 
-- ```forceReply ()``` - Force a reply to the message, [documentation](https://core.telegram.org/bots/api#forcereply)
+- ```forceReply ()``` - Força uma resposta da mensagem, [documentação](https://core.telegram.org/bots/api#forcereply)
 
-```php
+- ```replyKeyboardRemove ()``` - Remove o teclado personalizado e mostra o teclado padrão do dispositivo, [documentação](https://core.telegram.org/bots/api#replykeyboardremove)
 
-Methods::sendMessage([
-  'chat_id' => $bot->getChatId(),
-  'text' => 'Message with force reply',
-  'reply_markup' => Buttons::forceReply()
-]);
+## Reação a mensagens
+Bots podem reagir às mensagens por emojis personalizados ou emojis simples como 👍, 👌, 🔥, 😍...  
+[Você pode ver lista completa de reações disponíveis aqui](https://core.telegram.org/bots/api#reactiontypeemoji)  
+Temos uma classe estática ```Reaction``` para reagir a mensagens.
 
-```
-
-- ```replyKeyboardRemove ()``` - Removes the Telegram keyboard buttons and displays the device keyboard, [documentation](https://core.telegram.org/bots/api#replykeyboardremove)
-
-```php
-
-Methods::sendMessage([
-  'chat_id' => $bot->getChatId(),
-  'text' => 'Keyboard removed',
-  'reply_markup' => Buttons::replyKeyboardRemove()
-]);
-
-```
-## Message reactions
-Telegram Bots can react to messages using simple emojis such as 👍, 👌, 🔥, 😍... or custom emojis.  
-[You can see the all available reaction emoji here](https://core.telegram.org/bots/api#reactiontypeemoji)
-We have ```Reaction```, an static class for reacting to messages.
-
-- Reaction with ❤  
-![Reacting with ❤](https://i.imgur.com/I1GVoxF.jpg)
+- Reagindo com ❤  
+![Reagindo com ❤](https://i.imgur.com/I1GVoxF.jpg)
 ```php
 Methods::setMessageReaction ([
   'chat_id' => $bot->getChatId (),
@@ -273,8 +250,8 @@ Methods::setMessageReaction ([
 ]);
 ```
 
-- Reacting with custom emojis![5445284980978621387](https://i.imgur.com/3RwZ5oW.gif)  
-![Reacting with custom emojis](https://i.imgur.com/Vz5Eqhh.jpg)
+- Reagindo com emoji personalizado ![5445284980978621387](https://i.imgur.com/3RwZ5oW.gif)  
+![Reagindo com emoji personalizado](https://i.imgur.com/Vz5Eqhh.jpg)
 ```php
 Methods::setMessageReaction ([
   'chat_id' => $bot->getChatId (),
@@ -285,9 +262,9 @@ Methods::setMessageReaction ([
 ]);
 ```
 
-## Send files:
+## Enviando arquivos:
 
-- Send audio
+- Enviando audio
 
 ```php
 Methods::sendAudio ([
@@ -297,7 +274,7 @@ Methods::sendAudio ([
 ]);
 ```
 
-- Send photo
+- Enviando foto
 
 ```php
 Methods::sendPhoto ([
@@ -307,7 +284,7 @@ Methods::sendPhoto ([
 ]);
 ```
 
-- Send video
+- Enviando vídeo
 
 ```php
 Methods::sendVideo ([
@@ -317,7 +294,7 @@ Methods::sendVideo ([
 ]);
 ```
 
-- Send file
+- Enviando arquivo
 
 ```php
 Methods::sendDocument ([
@@ -327,7 +304,7 @@ Methods::sendDocument ([
 ]);
 ```
 
-## Download files
+## Download de arquivos
 
 ```php
 
@@ -339,9 +316,9 @@ var_dump ($bot->saveFile ($file, __DIR__.'/music.mp3'));
 ```
 
 ## Logs
-You can capture bot logs using ```\TelegramPhp\Config\Logs```, symple set one or more classes to catch all user logs.
+Você pode obter logs de interação com o bot, basta usar a classe estática ```\TelegramPhp\Config\Logs```, por ela você pode definir uma ou mais classes que irão receber e processar os dados de interação do usuário.
 
-- Class to catch and process all user logs.
+- Classe responsável por processar os logs.
 ```php
 class LogCommands {
   // method log is required
@@ -351,7 +328,7 @@ class LogCommands {
 }
 ```
 
-- Setting class ```LogCommands``` on the ```\TelegramPhp\Config\Logs```
+- Definindo a classe que irá processar os logs.
 ```php
 \TelegramPhp\Config\Logs::catchLogs ([
   LogCommands::class,
@@ -359,10 +336,10 @@ class LogCommands {
 ]);
 ```
 
-## Updates types
-It's possible to execute a callback for a specific type of [Updates](https://core.telegram.org/bots/api#update) sent by the Telegram API, for example, executing a callback to '_my_chat_member_' or '_chat_member_'.
+## Tipo de Update
+É possível executar uma função/método para um tipo de [Update](https://core.telegram.org/bots/api#update) expecífico enviado pelo Telegram, por exemplo você pode executar uma função que responda a updates do tipo '_my_chat_member_' ou '_chat_member_'.
 
-- Handling '_my_chat_member_' updates
+- Processando updates '_my_chat_member_'
 ```php
 $tlg->on ('my_chat_member', function ($bot){
   // code here
@@ -371,15 +348,14 @@ $tlg->on ('my_chat_member', function ($bot){
   // code here
 // });
 ```
-- Handling '_chat_member_' updates
+- Processando updates '_chat_member_'
 ```php
 $tlg->on ('chat_member', 'TelegramBot:myChatMember');
 ```
 
-### 🔥 [Share your project made with this class](https://t.me/httd1), your project could be featured here!
+### 🔥 [Envie os bots feitos com esse pacote](https://t.me/httd1), ele pode ser listado aqui!
 • J.M  
-- [@scdownbot](https://t.me/scdownbot) (+50K Users)
-- [@twitterdlrobot](https://t.me/twitterdlrobot) (+20K Users)
-- Off [@rastreiorobot](https://t.me/rastreiorobot) (+14K Users)
-- [@btn_bot](https://t.me/btn_bot) (+200 Users)
-- [@mailtemprobot](https://t.me/mailtemprobot) (+5k Users)
+- [@scdownbot](https://t.me/scdownbot) (+18K Usuários)
+- [@twitterdlrobot](https://t.me/twitterdlrobot) (+11K Usuários)
+- [@rastreiorobot](https://t.me/rastreiorobot) (+14K Usuários)
+- [@btn_bot](https://t.me/btn_bot) (+200 Usuários)
