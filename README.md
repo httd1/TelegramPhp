@@ -20,7 +20,7 @@ Before using this package, please read the entire Telegram Bot API documentation
 composer require httd1/TelegramPhp
 ```
 
-## Uso:
+## Usage:
 
 ```php
 <?php
