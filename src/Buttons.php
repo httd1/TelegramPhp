@@ -323,23 +323,23 @@ class Buttons {
         ];
 
         if (!\is_null ($user_is_bot)){
-            $arrayKeyBoard ['request_user']['user_is_bot'] = $user_is_bot;
+            $arrayKeyBoard ['request_users']['user_is_bot'] = $user_is_bot;
         }
         
         if (!\is_null ($user_is_premium)){
-            $arrayKeyBoard ['request_user']['user_is_premium'] = $user_is_premium;
+            $arrayKeyBoard ['request_users']['user_is_premium'] = $user_is_premium;
         }
 
         if (!\is_null ($request_name)){
-            $arrayKeyBoard ['request_user']['request_name'] = $request_name;
+            $arrayKeyBoard ['request_users']['request_name'] = $request_name;
         }
 
         if (!\is_null ($request_username)){
-            $arrayKeyBoard ['request_user']['request_username'] = $request_username;
+            $arrayKeyBoard ['request_users']['request_username'] = $request_username;
         }
 
         if (!\is_null ($request_photo)){
-            $arrayKeyBoard ['request_user']['request_photo'] = $request_photo;
+            $arrayKeyBoard ['request_users']['request_photo'] = $request_photo;
         }
 
         return $arrayKeyBoard;
