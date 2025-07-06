@@ -778,11 +778,17 @@ class TelegramPhp {
         $curl = curl_init ($url_file);
         curl_setopt ($curl, CURLOPT_FILE, $fopen);
         $exec = curl_exec ($curl);
-        curl_close ($curl);
-
+        
         if ($exec === false){
-            throw new \Exception (curl_error ($curl));
+
+            $error = curl_error ($curl);
+            curl_close ($curl);
+
+            throw new \Exception ($error);
+
         }
+
+        curl_close ($curl);
 
         return true;
     }
