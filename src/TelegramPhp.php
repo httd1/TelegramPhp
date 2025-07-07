@@ -411,6 +411,10 @@ class TelegramPhp {
         && isset ($this->content ['pre_checkout_query']['from']['id'])){
             $user_id = $this->content ['pre_checkout_query']['from']['id'];
         }
+        if ($this->getUpdateType () == 'purchased_paid_media' 
+        && isset ($this->content ['purchased_paid_media']['from']['id'])){
+            $user_id = $this->content ['purchased_paid_media']['from']['id'];
+        }
         if ($this->getUpdateType () == 'my_chat_member' 
         && isset ($this->content ['my_chat_member']['from']['id'])){
             $user_id = $this->content ['my_chat_member']['from']['id'];
@@ -686,6 +690,9 @@ class TelegramPhp {
         if (isset ($this->getContent ()[$this->getUpdateType ()]['document'])){
             return 'document';
         }
+        if (isset ($this->getContent ()[$this->getUpdateType ()]['paid_media'])){
+            return 'paid_media';
+        }
         if (isset ($this->getContent ()[$this->getUpdateType ()]['sticker'])){
             return 'sticker';
         }
@@ -700,6 +707,9 @@ class TelegramPhp {
         }
         if (isset ($this->getContent ()[$this->getUpdateType ()]['voice'])){
             return 'voice';
+        }
+        if (isset ($this->getContent ()[$this->getUpdateType ()]['checklist'])){
+            return 'checklist';
         }
         if (isset ($this->getContent ()[$this->getUpdateType ()]['contact'])){
             return 'contact';
