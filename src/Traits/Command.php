@@ -6,7 +6,7 @@ trait Command {
 
     public function matchCommand (string $command)
     {
-        $match = $this->match ('/(?<command>^\/[^\s]+)\s?(?<complement>.+)?/', $command);
+        $match = $this->match ('/(?<command>^\/[^\s]+)\s*(?<complement>.+)?/', $command);
 
         if (empty ($match)) return [];
 
