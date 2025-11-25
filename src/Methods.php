@@ -1353,6 +1353,34 @@ class Methods
     }
 
     /**
+     * Use this method to approve a suggested post in a direct messages chat.
+     * 
+     * @see https://core.telegram.org/bots/api#approvesuggestedpost
+     * 
+     * @param array $data
+     * 
+     * @return array
+     */
+    public static function approveSuggestedPost(array $data) : array
+    {
+        return self::call(__FUNCTION__, $data);
+    }
+
+    /**
+     * Use this method to decline a suggested post in a direct messages chat.
+     * 
+     * @see https://core.telegram.org/bots/api#declinesuggestedpost
+     * 
+     * @param array $data
+     * 
+     * @return array
+     */
+    public static function declineSuggestedPost(array $data) : array
+    {
+        return self::call(__FUNCTION__, $data);
+    }
+
+    /**
      * Use this method to delete a message, including service messages, with the following limitations:
      * - A message can only be deleted if it was sent less than 48 hours ago.
      * - A dice message in a private chat can only be deleted if it was sent more than 24 hours ago.
