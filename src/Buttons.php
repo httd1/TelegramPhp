@@ -24,19 +24,29 @@ class Buttons
      * 
      * @param string $text
      * @param string $url
-     * @param string $icon_custom_emoji_id
-     * @param string $style
+     * @param string|null $icon_custom_emoji_id
+     * @param string|null $style
      * 
      * @return array
      */
-    public static function inlineKeyBoardUrl(string $text, string $url, string $icon_custom_emoji_id = '', string $style = '') : array
+    public static function inlineKeyBoardUrl(string $text, string $url, ?string $icon_custom_emoji_id = null, ?string $style = null) : array
     {
-        return [
+
+        $arrayKeyBoard = [
             'text' => $text,
-            'icon_custom_emoji_id' => $icon_custom_emoji_id,
-            'style' => $style,
             'url' => $url
         ];
+
+        if (!\is_null($icon_custom_emoji_id)) {
+            $arrayKeyBoard['icon_custom_emoji_id'] = $icon_custom_emoji_id;
+        }
+
+        if (!\is_null($style)) {
+            $arrayKeyBoard['style'] = $style;
+        }
+
+        return $arrayKeyBoard;
+
     }
 
     /**
@@ -44,19 +54,29 @@ class Buttons
      * 
      * @param string $text
      * @param string $callback_data
-     * @param string $icon_custom_emoji_id
-     * @param string $style
+     * @param string|null $icon_custom_emoji_id
+     * @param string|null $style
      * 
      * @return array
      */
-    public static function inlineKeyBoardCallbackData(string $text, string $callback_data, string $icon_custom_emoji_id = '', string $style = '') : array
+    public static function inlineKeyBoardCallbackData(string $text, string $callback_data, ?string $icon_custom_emoji_id = null, ?string $style = null) : array
     {
-        return [
+
+        $arrayKeyBoard = [
             'text' => $text,
-            'icon_custom_emoji_id' => $icon_custom_emoji_id,
-            'style' => $style,
             'callback_data' => $callback_data
         ];
+
+        if (!\is_null($icon_custom_emoji_id)) {
+            $arrayKeyBoard['icon_custom_emoji_id'] = $icon_custom_emoji_id;
+        }
+
+        if (!\is_null($style)) {
+            $arrayKeyBoard['style'] = $style;
+        }
+
+        return $arrayKeyBoard;
+
     }
 
     /**
@@ -64,21 +84,31 @@ class Buttons
      * 
      * @param string $text
      * @param string $url
-     * @param string $icon_custom_emoji_id
-     * @param string $style
+     * @param string|null $icon_custom_emoji_id
+     * @param string|null $style
      * 
      * @return array
      */
-    public static function inlineKeyBoardWebApp(string $text, string $url, string $icon_custom_emoji_id = '', string $style = '') : array
+    public static function inlineKeyBoardWebApp(string $text, string $url, ?string $icon_custom_emoji_id = null, ?string $style = null) : array
     {
-        return [
+
+        $arrayKeyBoard = [
             'text' => $text,
-            'icon_custom_emoji_id' => $icon_custom_emoji_id,
-            'style' => $style,
             'web_app' => [
                 'url' => $url
             ]
         ];
+
+        if (!\is_null($icon_custom_emoji_id)) {
+            $arrayKeyBoard['icon_custom_emoji_id'] = $icon_custom_emoji_id;
+        }
+
+        if (!\is_null($style)) {
+            $arrayKeyBoard['style'] = $style;
+        }
+
+        return $arrayKeyBoard;
+
     }
 
     /**
@@ -89,17 +119,16 @@ class Buttons
      * @param string $forward_text
      * @param string $bot_username
      * @param bool $request_write_access
-     * @param string $icon_custom_emoji_id
-     * @param string $style
+     * @param string|null $icon_custom_emoji_id
+     * @param string|null $style
      * 
      * @return array
      */
-    public static function inlineKeyBoardLoginUrl(string $text, string $url, string $forward_text = '', string $bot_username = '', bool $request_write_access = true, string $icon_custom_emoji_id = '', string $style = '') : array
+    public static function inlineKeyBoardLoginUrl(string $text, string $url, string $forward_text = '', string $bot_username = '', bool $request_write_access = true, ?string $icon_custom_emoji_id = null, ?string $style = null) : array
     {
-        return [
+
+        $arrayKeyBoard = [
             'text' => $text,
-            'icon_custom_emoji_id' => $icon_custom_emoji_id,
-            'style' => $style,
             'login_url' => [
                 'url' => $url,
                 'forward_text' => $forward_text,
@@ -107,6 +136,17 @@ class Buttons
                 'request_write_access' => $request_write_access
             ]
         ];
+
+        if (!\is_null($icon_custom_emoji_id)) {
+            $arrayKeyBoard['icon_custom_emoji_id'] = $icon_custom_emoji_id;
+        }
+
+        if (!\is_null($style)) {
+            $arrayKeyBoard['style'] = $style;
+        }
+
+        return $arrayKeyBoard;
+
     }
 
     /**
@@ -115,19 +155,29 @@ class Buttons
      * 
      * @param string $text
      * @param string $switch_inline_query
-     * @param string $icon_custom_emoji_id
-     * @param string $style
+     * @param string|null $icon_custom_emoji_id
+     * @param string|null $style
      * 
      * @return array
      */
-    public static function inlineKeyBoardSwitchInlineQuery(string $text, string $switch_inline_query, string $icon_custom_emoji_id = '', string $style = '') : array
+    public static function inlineKeyBoardSwitchInlineQuery(string $text, string $switch_inline_query, ?string $icon_custom_emoji_id = null, ?string $style = null) : array
     {
-        return [
+
+        $arrayKeyBoard = [
             'text' => $text,
-            'icon_custom_emoji_id' => $icon_custom_emoji_id,
-            'style' => $style,
             'switch_inline_query' => $switch_inline_query
         ];
+
+        if (!\is_null($icon_custom_emoji_id)) {
+            $arrayKeyBoard['icon_custom_emoji_id'] = $icon_custom_emoji_id;
+        }
+
+        if (!\is_null($style)) {
+            $arrayKeyBoard['style'] = $style;
+        }
+
+        return $arrayKeyBoard;
+
     }
 
     /**
@@ -136,19 +186,29 @@ class Buttons
      * 
      * @param string $text
      * @param string $switch_inline_query_current_chat
-     * @param string $icon_custom_emoji_id
-     * @param string $style
+     * @param string|null $icon_custom_emoji_id
+     * @param string|null $style
      * 
      * @return array
      */
-    public static function inlineKeyBoardSwitchInlineQueryCurrentChat(string $text, string $switch_inline_query_current_chat, string $icon_custom_emoji_id = '', string $style = '') : array
+    public static function inlineKeyBoardSwitchInlineQueryCurrentChat(string $text, string $switch_inline_query_current_chat, ?string $icon_custom_emoji_id = null, ?string $style = null) : array
     {
-        return [
+
+        $arrayKeyBoard = [
             'text' => $text,
-            'icon_custom_emoji_id' => $icon_custom_emoji_id,
-            'style' => $style,
             'switch_inline_query_current_chat' => $switch_inline_query_current_chat
         ];
+
+        if (!\is_null($icon_custom_emoji_id)) {
+            $arrayKeyBoard['icon_custom_emoji_id'] = $icon_custom_emoji_id;
+        }
+
+        if (!\is_null($style)) {
+            $arrayKeyBoard['style'] = $style;
+        }
+
+        return $arrayKeyBoard;
+
     }
 
     /**
@@ -161,17 +221,16 @@ class Buttons
      * @param bool $allow_bot_chats
      * @param bool $allow_group_chats
      * @param bool $allow_channel_chats
-     * @param string $icon_custom_emoji_id
-     * @param string $style
+     * @param string|null $icon_custom_emoji_id
+     * @param string|null $style
      * 
      * @return array
      */
-    public static function inlineKeyBoardSwitchInlineQueryChosenChat(string $text, string $query = '', bool $allow_user_chats = true, bool $allow_bot_chats = true, bool $allow_group_chats = true, bool $allow_channel_chats = true, string $icon_custom_emoji_id = '', string $style = '') : array
+    public static function inlineKeyBoardSwitchInlineQueryChosenChat(string $text, string $query = '', bool $allow_user_chats = true, bool $allow_bot_chats = true, bool $allow_group_chats = true, bool $allow_channel_chats = true, ?string $icon_custom_emoji_id = null, ?string $style = null) : array
     {
-        return [
+
+        $arrayKeyBoard = [
             'text' => $text,
-            'icon_custom_emoji_id' => $icon_custom_emoji_id,
-            'style' => $style,
             'switch_inline_query_chosen_chat' => [
                 'query' => $query,
                 'allow_user_chats' => $allow_user_chats,
@@ -180,6 +239,17 @@ class Buttons
                 'allow_channel_chats' => $allow_channel_chats
             ]
         ];
+
+        if (!\is_null($icon_custom_emoji_id)) {
+            $arrayKeyBoard['icon_custom_emoji_id'] = $icon_custom_emoji_id;
+        }
+
+        if (!\is_null($style)) {
+            $arrayKeyBoard['style'] = $style;
+        }
+
+        return $arrayKeyBoard;
+
     }
 
     /**
@@ -187,21 +257,31 @@ class Buttons
      * 
      * @param string $text
      * @param string $copy_text
-     * @param string $icon_custom_emoji_id
-     * @param string $style
+     * @param string|null $icon_custom_emoji_id
+     * @param string|null $style
      * 
      * @return array
      */
-    public static function inlineKeyBoardCopyText(string $text, string $copy_text, string $icon_custom_emoji_id = '', string $style = '') : array
+    public static function inlineKeyBoardCopyText(string $text, string $copy_text, ?string $icon_custom_emoji_id = null, ?string $style = null) : array
     {
-        return [
+
+        $arrayKeyBoard = [
             'text' => $text,
-            'icon_custom_emoji_id' => $icon_custom_emoji_id,
-            'style' => $style,
             'copy_text' => [
                 'text' => $copy_text
             ]
         ];
+
+        if (!\is_null($icon_custom_emoji_id)) {
+            $arrayKeyBoard['icon_custom_emoji_id'] = $icon_custom_emoji_id;
+        }
+
+        if (!\is_null($style)) {
+            $arrayKeyBoard['style'] = $style;
+        }
+
+        return $arrayKeyBoard;
+
     }
 
     /**
@@ -210,19 +290,29 @@ class Buttons
      * 
      * @param string $text
      * @param bool $pay
-     * @param string $icon_custom_emoji_id
-     * @param string $style
+     * @param string|null $icon_custom_emoji_id
+     * @param string|null $style
      * 
      * @return array
      */
-    public static function inlineKeyBoardPay(string $text, bool $pay = true, string $icon_custom_emoji_id = '', string $style = '') : array
+    public static function inlineKeyBoardPay(string $text, bool $pay = true, ?string $icon_custom_emoji_id = null, ?string $style = null) : array
     {
-        return [
+
+        $arrayKeyBoard = [
             'text' => $text,
-            'icon_custom_emoji_id' => $icon_custom_emoji_id,
-            'style' => $style,
             'pay' => $pay
         ];
+
+        if (!\is_null($icon_custom_emoji_id)) {
+            $arrayKeyBoard['icon_custom_emoji_id'] = $icon_custom_emoji_id;
+        }
+
+        if (!\is_null($style)) {
+            $arrayKeyBoard['style'] = $style;
+        }
+
+        return $arrayKeyBoard;
+
     }
 
     /**
@@ -252,18 +342,28 @@ class Buttons
      * Text of the button
      * 
      * @param string $text
-     * @param string $icon_custom_emoji_id
-     * @param string $style
+     * @param string|null $icon_custom_emoji_id
+     * @param string|null $style
      * 
      * @return array
      */
-    public static function keyBoardButtonText(string $text, string $icon_custom_emoji_id = '', string $style = '') : array
+    public static function keyBoardButtonText(string $text, ?string $icon_custom_emoji_id = null, ?string $style = null) : array
     {
-        return [
+
+        $arrayKeyBoard = [
             'text' => $text,
-            'icon_custom_emoji_id' => $icon_custom_emoji_id,
-            'style' => $style,
         ];
+
+        if (!\is_null($icon_custom_emoji_id)) {
+            $arrayKeyBoard['icon_custom_emoji_id'] = $icon_custom_emoji_id;
+        }
+
+        if (!\is_null($style)) {
+            $arrayKeyBoard['style'] = $style;
+        }
+
+        return $arrayKeyBoard;
+
     }
 
     /**
@@ -271,19 +371,29 @@ class Buttons
      * Available in private chats only.
      * 
      * @param string $text
-     * @param string $icon_custom_emoji_id
-     * @param string $style
+     * @param string|null $icon_custom_emoji_id
+     * @param string|null $style
      * 
      * @return array
      */
-    public static function keyBoardButtonRequestContact(string $text, string $icon_custom_emoji_id = '', string $style = '') : array
+    public static function keyBoardButtonRequestContact(string $text, ?string $icon_custom_emoji_id = null, ?string $style = null) : array
     {
-        return [
+
+        $arrayKeyBoard = [
             'text' => $text,
-            'icon_custom_emoji_id' => $icon_custom_emoji_id,
-            'style' => $style,
             'request_contact' => true
         ];
+
+        if (!\is_null($icon_custom_emoji_id)) {
+            $arrayKeyBoard['icon_custom_emoji_id'] = $icon_custom_emoji_id;
+        }
+
+        if (!\is_null($style)) {
+            $arrayKeyBoard['style'] = $style;
+        }
+
+        return $arrayKeyBoard;
+
     }
 
     /**
@@ -291,19 +401,29 @@ class Buttons
      * Available in private chats only.
      * 
      * @param string $text
-     * @param string $icon_custom_emoji_id
-     * @param string $style
+     * @param string|null $icon_custom_emoji_id
+     * @param string|null $style
      * 
      * @return array
      */
-    public static function keyBoardButtonRequestLocation(string $text, string $icon_custom_emoji_id = '', string $style = '') : array
+    public static function keyBoardButtonRequestLocation(string $text, ?string $icon_custom_emoji_id = null, ?string $style = null) : array
     {
-        return [
+
+        $arrayKeyBoard = [
             'text' => $text,
-            'icon_custom_emoji_id' => $icon_custom_emoji_id,
-            'style' => $style,
             'request_location' => true
         ];
+
+        if (!\is_null($icon_custom_emoji_id)) {
+            $arrayKeyBoard['icon_custom_emoji_id'] = $icon_custom_emoji_id;
+        }
+
+        if (!\is_null($style)) {
+            $arrayKeyBoard['style'] = $style;
+        }
+
+        return $arrayKeyBoard;
+
     }
 
     /**
@@ -312,21 +432,31 @@ class Buttons
      * 
      * @param string $text
      * @param string $type,
-     * @param string $icon_custom_emoji_id
-     * @param string $style
+     * @param string|null $icon_custom_emoji_id
+     * @param string|null $style
      * 
      * @return array
      */
-    public static function keyBoardButtonRequestPoll(string $text, string $type, string $icon_custom_emoji_id = '', string $style = '') : array
+    public static function keyBoardButtonRequestPoll(string $text, string $type, ?string $icon_custom_emoji_id = null, ?string $style = null) : array
     {
-        return [
+
+        $arrayKeyBoard = [
             'text' => $text,
-            'icon_custom_emoji_id' => $icon_custom_emoji_id,
-            'style' => $style,
             'request_poll' => [
                 'type' => $type
             ]
         ];
+
+        if (!\is_null($icon_custom_emoji_id)) {
+            $arrayKeyBoard['icon_custom_emoji_id'] = $icon_custom_emoji_id;
+        }
+
+        if (!\is_null($style)) {
+            $arrayKeyBoard['style'] = $style;
+        }
+
+        return $arrayKeyBoard;
+
     }
 
     /**
@@ -336,21 +466,31 @@ class Buttons
      * 
      * @param string $text
      * @param string $url
-     * @param string $icon_custom_emoji_id
-     * @param string $style
+     * @param string|null $icon_custom_emoji_id
+     * @param string|null $style
      * 
      * @return array
      */
-    public static function keyBoardButtonWebApp(string $text, string $url, string $icon_custom_emoji_id = '', string $style = '') : array
+    public static function keyBoardButtonWebApp(string $text, string $url, ?string $icon_custom_emoji_id = null, ?string $style = null) : array
     {
-        return [
+
+        $arrayKeyBoard = [
             'text' => $text,
-            'icon_custom_emoji_id' => $icon_custom_emoji_id,
-            'style' => $style,
             'web_app' => [
                 'url' => $url
             ]
         ];
+
+        if (!\is_null($icon_custom_emoji_id)) {
+            $arrayKeyBoard['icon_custom_emoji_id'] = $icon_custom_emoji_id;
+        }
+
+        if (!\is_null($style)) {
+            $arrayKeyBoard['style'] = $style;
+        }
+
+        return $arrayKeyBoard;
+
     }
 
     /**
@@ -366,8 +506,8 @@ class Buttons
      * @param bool|null $request_name
      * @param bool|null $request_username
      * @param bool|null $request_photo
-     * @param string $icon_custom_emoji_id
-     * @param string $style
+     * @param string|null $icon_custom_emoji_id
+     * @param string|null $style
      * 
      * @return array
      */
@@ -380,18 +520,25 @@ class Buttons
         ?bool $request_name = null,
         ?bool $request_username = null,
         ?bool $request_photo = null,
-        string $icon_custom_emoji_id = '',
-        string $style = ''
+        ?string $icon_custom_emoji_id = null,
+        ?string $style = null
     ) : array {
+
         $arrayKeyBoard = [
             'text' => $text,
-            'icon_custom_emoji_id' => $icon_custom_emoji_id,
-            'style' => $style,
             'request_users' => [
                 'request_id' => $request_id,
                 'max_quantity' => $max_quantity ?? 1
             ]
         ];
+
+        if (!\is_null($icon_custom_emoji_id)) {
+            $arrayKeyBoard['icon_custom_emoji_id'] = $icon_custom_emoji_id;
+        }
+
+        if (!\is_null($style)) {
+            $arrayKeyBoard['style'] = $style;
+        }
 
         if (!\is_null($user_is_bot)) {
             $arrayKeyBoard['request_users']['user_is_bot'] = $user_is_bot;
@@ -433,8 +580,8 @@ class Buttons
      * @param bool|null $request_title
      * @param bool|null $request_username
      * @param bool|null $request_photo
-     * @param string $icon_custom_emoji_id
-     * @param string $style
+     * @param string|null $icon_custom_emoji_id
+     * @param string|null $style
      * 
      * @return array
      */
@@ -451,19 +598,25 @@ class Buttons
         ?bool $request_title = null,
         ?bool $request_username = null,
         ?bool $request_photo = null,
-        string $icon_custom_emoji_id = '',
-        string $style = ''
+        ?string $icon_custom_emoji_id = null,
+        ?string $style = null
     ) : array {
 
         $arrayKeyBoard = [
             'text' => $text,
-            'icon_custom_emoji_id' => $icon_custom_emoji_id,
-            'style' => $style,
             'request_chat' => [
                 'request_id' => $request_id,
                 'chat_is_channel' => $chat_is_channel,
             ]
         ];
+
+        if (!\is_null($icon_custom_emoji_id)) {
+            $arrayKeyBoard['icon_custom_emoji_id'] = $icon_custom_emoji_id;
+        }
+
+        if (!\is_null($style)) {
+            $arrayKeyBoard['style'] = $style;
+        }
 
         if (!\is_null($chat_is_forum)) {
             $arrayKeyBoard['request_chat']['chat_is_forum'] = $chat_is_forum;
