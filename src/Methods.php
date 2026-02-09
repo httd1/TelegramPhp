@@ -415,6 +415,20 @@ class Methods
     }
 
     /**
+     * Use this method to stream a partial message to a user while the message is being generated; supported only for bots with forum topic mode enabled.
+     * 
+     * @see https://core.telegram.org/bots/api#sendmessagedraft
+     * 
+     * @param array $data
+     * 
+     * @return array
+     */
+    public static function sendMessageDraft(array $data) : array
+    {
+        return self::call(__FUNCTION__, $data);
+    }
+
+    /**
      * Use this method when you need to tell the user that something is happening on the bot's side.
      * 
      * @see https://core.telegram.org/bots/api#sendchataction
@@ -466,6 +480,20 @@ class Methods
      * @return array
      */
     public static function setUserEmojiStatus(array $data) : array
+    {
+        return self::call(__FUNCTION__, $data);
+    }
+
+    /**
+     * Use this method to get a list of profile audios for a user.
+     * 
+     * @see https://core.telegram.org/bots/api#getuserprofileaudios
+     * 
+     * @param array $data
+     * 
+     * @return array
+     */
+    public static function getUserProfileAudios(array $data) : array
     {
         return self::call(__FUNCTION__, $data);
     }
@@ -1224,6 +1252,32 @@ class Methods
     public static function getMyShortDescription(array $data) : array
     {
         return self::call(__FUNCTION__, $data);
+    }
+
+    /**
+     * Changes the profile photo of the bot.
+     * 
+     * @see https://core.telegram.org/bots/api#setmyprofilephoto
+     * 
+     * @param array $data
+     * 
+     * @return array
+     */
+    public static function setMyProfilePhoto(array $data) : array
+    {
+        return self::call(__FUNCTION__, $data);
+    }
+
+    /**
+     * Removes the profile photo of the bot.
+     * 
+     * @see https://core.telegram.org/bots/api#removemyprofilephoto
+     * 
+     * @return array
+     */
+    public static function removeMyProfilePhoto() : array
+    {
+        return self::call(__FUNCTION__, []);
     }
 
     /**

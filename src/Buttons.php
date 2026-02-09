@@ -2,7 +2,8 @@
 
 namespace TelegramPhp;
 
-class Buttons {
+class Buttons
+{
 
     /**
      * @see https://core.telegram.org/bots/api#inlinekeyboardmarkup
@@ -11,9 +12,9 @@ class Buttons {
      * 
      * @return string
      */
-    public static function inlineKeyBoard (array $inline_keyboard) :string
+    public static function inlineKeyBoard(array $inline_keyboard) : string
     {
-        return json_encode ([
+        return json_encode([
             'inline_keyboard' => $inline_keyboard
         ]);
     }
@@ -23,13 +24,17 @@ class Buttons {
      * 
      * @param string $text
      * @param string $url
+     * @param string $icon_custom_emoji_id
+     * @param string $style
      * 
      * @return array
      */
-    public static function inlineKeyBoardUrl (string $text, string $url) :array
+    public static function inlineKeyBoardUrl(string $text, string $url, string $icon_custom_emoji_id = '', string $style = '') : array
     {
         return [
             'text' => $text,
+            'icon_custom_emoji_id' => $icon_custom_emoji_id,
+            'style' => $style,
             'url' => $url
         ];
     }
@@ -39,35 +44,43 @@ class Buttons {
      * 
      * @param string $text
      * @param string $callback_data
+     * @param string $icon_custom_emoji_id
+     * @param string $style
      * 
      * @return array
      */
-    public static function inlineKeyBoardCallbackData (string $text, string $callback_data) :array
+    public static function inlineKeyBoardCallbackData(string $text, string $callback_data, string $icon_custom_emoji_id = '', string $style = '') : array
     {
         return [
             'text' => $text,
+            'icon_custom_emoji_id' => $icon_custom_emoji_id,
+            'style' => $style,
             'callback_data' => $callback_data
         ];
     }
-    
+
     /**
      * Description of the [Web App](https://core.telegram.org/bots/webapps) that will be launched when the user presses the button.
      * 
      * @param string $text
      * @param string $url
+     * @param string $icon_custom_emoji_id
+     * @param string $style
      * 
      * @return array
      */
-    public static function inlineKeyBoardWebApp (string $text, string $url) :array
+    public static function inlineKeyBoardWebApp(string $text, string $url, string $icon_custom_emoji_id = '', string $style = '') : array
     {
         return [
             'text' => $text,
+            'icon_custom_emoji_id' => $icon_custom_emoji_id,
+            'style' => $style,
             'web_app' => [
                 'url' => $url
             ]
         ];
     }
-    
+
     /**
      * An HTTPS URL used to automatically authorize the user. Can be used as a replacement for the [Telegram Login Widget](https://core.telegram.org/widgets/login).
      * 
@@ -76,13 +89,17 @@ class Buttons {
      * @param string $forward_text
      * @param string $bot_username
      * @param bool $request_write_access
+     * @param string $icon_custom_emoji_id
+     * @param string $style
      * 
      * @return array
      */
-    public static function inlineKeyBoardLoginUrl (string $text, string $url, string $forward_text = '', string $bot_username = '', bool $request_write_access = true) :array
+    public static function inlineKeyBoardLoginUrl(string $text, string $url, string $forward_text = '', string $bot_username = '', bool $request_write_access = true, string $icon_custom_emoji_id = '', string $style = '') : array
     {
         return [
             'text' => $text,
+            'icon_custom_emoji_id' => $icon_custom_emoji_id,
+            'style' => $style,
             'login_url' => [
                 'url' => $url,
                 'forward_text' => $forward_text,
@@ -91,37 +108,45 @@ class Buttons {
             ]
         ];
     }
-    
+
     /**
      * If set, pressing the button will prompt the user to select one of their chats, open that chat and insert the bot's username and the specified inline query in the input field.
      * May be empty, in which case just the bot's username will be inserted.
      * 
      * @param string $text
      * @param string $switch_inline_query
+     * @param string $icon_custom_emoji_id
+     * @param string $style
      * 
      * @return array
      */
-    public static function inlineKeyBoardSwitchInlineQuery (string $text, string $switch_inline_query) :array
+    public static function inlineKeyBoardSwitchInlineQuery(string $text, string $switch_inline_query, string $icon_custom_emoji_id = '', string $style = '') : array
     {
         return [
             'text' => $text,
+            'icon_custom_emoji_id' => $icon_custom_emoji_id,
+            'style' => $style,
             'switch_inline_query' => $switch_inline_query
         ];
     }
-    
+
     /**
      * Pressing the button will insert the bot's username and the specified inline query in the current chat's input field.
      * May be empty, in which case only the bot's username will be inserted.
      * 
      * @param string $text
      * @param string $switch_inline_query_current_chat
+     * @param string $icon_custom_emoji_id
+     * @param string $style
      * 
      * @return array
      */
-    public static function inlineKeyBoardSwitchInlineQueryCurrentChat (string $text, string $switch_inline_query_current_chat) :array
+    public static function inlineKeyBoardSwitchInlineQueryCurrentChat(string $text, string $switch_inline_query_current_chat, string $icon_custom_emoji_id = '', string $style = '') : array
     {
         return [
             'text' => $text,
+            'icon_custom_emoji_id' => $icon_custom_emoji_id,
+            'style' => $style,
             'switch_inline_query_current_chat' => $switch_inline_query_current_chat
         ];
     }
@@ -136,13 +161,17 @@ class Buttons {
      * @param bool $allow_bot_chats
      * @param bool $allow_group_chats
      * @param bool $allow_channel_chats
+     * @param string $icon_custom_emoji_id
+     * @param string $style
      * 
      * @return array
      */
-    public static function inlineKeyBoardSwitchInlineQueryChosenChat (string $text, string $query = '', bool $allow_user_chats = true, bool $allow_bot_chats = true, bool $allow_group_chats = true, bool $allow_channel_chats = true) :array
+    public static function inlineKeyBoardSwitchInlineQueryChosenChat(string $text, string $query = '', bool $allow_user_chats = true, bool $allow_bot_chats = true, bool $allow_group_chats = true, bool $allow_channel_chats = true, string $icon_custom_emoji_id = '', string $style = '') : array
     {
         return [
             'text' => $text,
+            'icon_custom_emoji_id' => $icon_custom_emoji_id,
+            'style' => $style,
             'switch_inline_query_chosen_chat' => [
                 'query' => $query,
                 'allow_user_chats' => $allow_user_chats,
@@ -158,32 +187,40 @@ class Buttons {
      * 
      * @param string $text
      * @param string $copy_text
+     * @param string $icon_custom_emoji_id
+     * @param string $style
      * 
      * @return array
      */
-    public static function inlineKeyBoardCopyText (string $text, string $copy_text) :array
+    public static function inlineKeyBoardCopyText(string $text, string $copy_text, string $icon_custom_emoji_id = '', string $style = '') : array
     {
         return [
             'text' => $text,
+            'icon_custom_emoji_id' => $icon_custom_emoji_id,
+            'style' => $style,
             'copy_text' => [
                 'text' => $copy_text
             ]
         ];
     }
-    
+
     /**
      * Specify True, to send a [Pay button](https://core.telegram.org/bots/api#payments).
      * - NOTE: This type of button must always be the first button in the first row and can only be used in invoice messages.
      * 
      * @param string $text
      * @param bool $pay
+     * @param string $icon_custom_emoji_id
+     * @param string $style
      * 
      * @return array
      */
-    public static function inlineKeyBoardPay (string $text, bool $pay = true) :array
+    public static function inlineKeyBoardPay(string $text, bool $pay = true, string $icon_custom_emoji_id = '', string $style = '') : array
     {
         return [
             'text' => $text,
+            'icon_custom_emoji_id' => $icon_custom_emoji_id,
+            'style' => $style,
             'pay' => $pay
         ];
     }
@@ -199,9 +236,9 @@ class Buttons {
      * 
      * @return string
      */
-    public static function replyKeyBoardMarkup (array $keyboard, bool $is_persistent = false, bool $resize_keyboard = false, bool $one_time_keyboard = false, string $input_field_placeholder = '', bool $selective = false) :string
+    public static function replyKeyBoardMarkup(array $keyboard, bool $is_persistent = false, bool $resize_keyboard = false, bool $one_time_keyboard = false, string $input_field_placeholder = '', bool $selective = false) : string
     {
-        return json_encode ([
+        return json_encode([
             'keyboard' => $keyboard,
             'is_persistent' => $is_persistent,
             'resize_keyboard' => $resize_keyboard,
@@ -215,13 +252,17 @@ class Buttons {
      * Text of the button
      * 
      * @param string $text
+     * @param string $icon_custom_emoji_id
+     * @param string $style
      * 
      * @return array
      */
-    public static function keyBoardButtonText (string $text) :array
+    public static function keyBoardButtonText(string $text, string $icon_custom_emoji_id = '', string $style = '') : array
     {
         return [
-            'text' => $text
+            'text' => $text,
+            'icon_custom_emoji_id' => $icon_custom_emoji_id,
+            'style' => $style,
         ];
     }
 
@@ -230,13 +271,17 @@ class Buttons {
      * Available in private chats only.
      * 
      * @param string $text
+     * @param string $icon_custom_emoji_id
+     * @param string $style
      * 
      * @return array
      */
-    public static function keyBoardButtonRequestContact (string $text) :array
+    public static function keyBoardButtonRequestContact(string $text, string $icon_custom_emoji_id = '', string $style = '') : array
     {
         return [
             'text' => $text,
+            'icon_custom_emoji_id' => $icon_custom_emoji_id,
+            'style' => $style,
             'request_contact' => true
         ];
     }
@@ -246,13 +291,17 @@ class Buttons {
      * Available in private chats only.
      * 
      * @param string $text
+     * @param string $icon_custom_emoji_id
+     * @param string $style
      * 
      * @return array
      */
-    public static function keyBoardButtonRequestLocation (string $text) :array
+    public static function keyBoardButtonRequestLocation(string $text, string $icon_custom_emoji_id = '', string $style = '') : array
     {
         return [
             'text' => $text,
+            'icon_custom_emoji_id' => $icon_custom_emoji_id,
+            'style' => $style,
             'request_location' => true
         ];
     }
@@ -262,14 +311,18 @@ class Buttons {
      * Available in private chats only.
      * 
      * @param string $text
-     * @param string $type
+     * @param string $type,
+     * @param string $icon_custom_emoji_id
+     * @param string $style
      * 
      * @return array
      */
-    public static function keyBoardButtonRequestPoll (string $text, string $type) :array
+    public static function keyBoardButtonRequestPoll(string $text, string $type, string $icon_custom_emoji_id = '', string $style = '') : array
     {
         return [
             'text' => $text,
+            'icon_custom_emoji_id' => $icon_custom_emoji_id,
+            'style' => $style,
             'request_poll' => [
                 'type' => $type
             ]
@@ -283,13 +336,17 @@ class Buttons {
      * 
      * @param string $text
      * @param string $url
+     * @param string $icon_custom_emoji_id
+     * @param string $style
      * 
      * @return array
      */
-    public static function keyBoardButtonWebApp (string $text, string $url) :array
+    public static function keyBoardButtonWebApp(string $text, string $url, string $icon_custom_emoji_id = '', string $style = '') : array
     {
         return [
             'text' => $text,
+            'icon_custom_emoji_id' => $icon_custom_emoji_id,
+            'style' => $style,
             'web_app' => [
                 'url' => $url
             ]
@@ -309,37 +366,51 @@ class Buttons {
      * @param bool|null $request_name
      * @param bool|null $request_username
      * @param bool|null $request_photo
+     * @param string $icon_custom_emoji_id
+     * @param string $style
      * 
      * @return array
      */
-    public static function keyBoardButtonRequestUser (string $text, int $request_id, bool|null $user_is_bot = null, bool|null $user_is_premium = null, int|null $max_quantity = null, bool|null $request_name = null, bool|null $request_username = null, bool|null $request_photo = null) :array
-    {
+    public static function keyBoardButtonRequestUser(
+        string $text,
+        int $request_id,
+        ?bool $user_is_bot = null,
+        ?bool $user_is_premium = null,
+        ?int $max_quantity = null,
+        ?bool $request_name = null,
+        ?bool $request_username = null,
+        ?bool $request_photo = null,
+        string $icon_custom_emoji_id = '',
+        string $style = ''
+    ) : array {
         $arrayKeyBoard = [
             'text' => $text,
+            'icon_custom_emoji_id' => $icon_custom_emoji_id,
+            'style' => $style,
             'request_users' => [
                 'request_id' => $request_id,
                 'max_quantity' => $max_quantity ?? 1
             ]
         ];
 
-        if (!\is_null ($user_is_bot)){
-            $arrayKeyBoard ['request_users']['user_is_bot'] = $user_is_bot;
-        }
-        
-        if (!\is_null ($user_is_premium)){
-            $arrayKeyBoard ['request_users']['user_is_premium'] = $user_is_premium;
+        if (!\is_null($user_is_bot)) {
+            $arrayKeyBoard['request_users']['user_is_bot'] = $user_is_bot;
         }
 
-        if (!\is_null ($request_name)){
-            $arrayKeyBoard ['request_users']['request_name'] = $request_name;
+        if (!\is_null($user_is_premium)) {
+            $arrayKeyBoard['request_users']['user_is_premium'] = $user_is_premium;
         }
 
-        if (!\is_null ($request_username)){
-            $arrayKeyBoard ['request_users']['request_username'] = $request_username;
+        if (!\is_null($request_name)) {
+            $arrayKeyBoard['request_users']['request_name'] = $request_name;
         }
 
-        if (!\is_null ($request_photo)){
-            $arrayKeyBoard ['request_users']['request_photo'] = $request_photo;
+        if (!\is_null($request_username)) {
+            $arrayKeyBoard['request_users']['request_username'] = $request_username;
+        }
+
+        if (!\is_null($request_photo)) {
+            $arrayKeyBoard['request_users']['request_photo'] = $request_photo;
         }
 
         return $arrayKeyBoard;
@@ -362,54 +433,72 @@ class Buttons {
      * @param bool|null $request_title
      * @param bool|null $request_username
      * @param bool|null $request_photo
+     * @param string $icon_custom_emoji_id
+     * @param string $style
      * 
      * @return array
      */
-    public static function keyBoardButtonRequestChat (string $text, int $request_id, bool $chat_is_channel = false, bool|null $chat_is_forum = null, bool|null $chat_has_username = null, bool|null $chat_is_created = null, array|null $user_administrator_rights = null, array|null $bot_administrator_rights = null, bool|null $bot_is_member = null, bool|null $request_title = null, bool|null $request_username = null, bool|null $request_photo = null) :array
-    {
+    public static function keyBoardButtonRequestChat(
+        string $text,
+        int $request_id,
+        bool $chat_is_channel = false,
+        ?bool $chat_is_forum = null,
+        ?bool $chat_has_username = null,
+        ?bool $chat_is_created = null,
+        ?array $user_administrator_rights = null,
+        ?array $bot_administrator_rights = null,
+        ?bool $bot_is_member = null,
+        ?bool $request_title = null,
+        ?bool $request_username = null,
+        ?bool $request_photo = null,
+        string $icon_custom_emoji_id = '',
+        string $style = ''
+    ) : array {
 
         $arrayKeyBoard = [
             'text' => $text,
+            'icon_custom_emoji_id' => $icon_custom_emoji_id,
+            'style' => $style,
             'request_chat' => [
                 'request_id' => $request_id,
                 'chat_is_channel' => $chat_is_channel,
             ]
         ];
 
-        if (!\is_null ($chat_is_forum)){
-            $arrayKeyBoard ['request_chat']['chat_is_forum'] = $chat_is_forum;
-        }
-        
-        if (!\is_null ($chat_has_username)){
-            $arrayKeyBoard ['request_chat']['chat_has_username'] = $chat_has_username;
-        }
-        
-        if (!\is_null ($chat_is_created)){
-            $arrayKeyBoard ['request_chat']['chat_is_created'] = $chat_is_created;
-        }
-        
-        if (!\is_null ($user_administrator_rights)){
-            $arrayKeyBoard ['request_chat']['user_administrator_rights'] = $user_administrator_rights;
-        }
-        
-        if (!\is_null ($bot_administrator_rights)){
-            $arrayKeyBoard ['request_chat']['bot_administrator_rights'] = $bot_administrator_rights;
-        }
-        
-        if (!\is_null ($bot_is_member)){
-            $arrayKeyBoard ['request_chat']['bot_is_member'] = $bot_is_member;
+        if (!\is_null($chat_is_forum)) {
+            $arrayKeyBoard['request_chat']['chat_is_forum'] = $chat_is_forum;
         }
 
-        if (!\is_null ($request_title)){
-            $arrayKeyBoard ['request_chat']['request_title'] = $request_title;
+        if (!\is_null($chat_has_username)) {
+            $arrayKeyBoard['request_chat']['chat_has_username'] = $chat_has_username;
         }
 
-        if (!\is_null ($request_username)){
-            $arrayKeyBoard ['request_chat']['request_username'] = $request_username;
+        if (!\is_null($chat_is_created)) {
+            $arrayKeyBoard['request_chat']['chat_is_created'] = $chat_is_created;
         }
 
-        if (!\is_null ($request_photo)){
-            $arrayKeyBoard ['request_chat']['request_photo'] = $request_photo;
+        if (!\is_null($user_administrator_rights)) {
+            $arrayKeyBoard['request_chat']['user_administrator_rights'] = $user_administrator_rights;
+        }
+
+        if (!\is_null($bot_administrator_rights)) {
+            $arrayKeyBoard['request_chat']['bot_administrator_rights'] = $bot_administrator_rights;
+        }
+
+        if (!\is_null($bot_is_member)) {
+            $arrayKeyBoard['request_chat']['bot_is_member'] = $bot_is_member;
+        }
+
+        if (!\is_null($request_title)) {
+            $arrayKeyBoard['request_chat']['request_title'] = $request_title;
+        }
+
+        if (!\is_null($request_username)) {
+            $arrayKeyBoard['request_chat']['request_username'] = $request_username;
+        }
+
+        if (!\is_null($request_photo)) {
+            $arrayKeyBoard['request_chat']['request_photo'] = $request_photo;
         }
 
         return $arrayKeyBoard;
@@ -424,14 +513,14 @@ class Buttons {
      * 
      * @return string
      */
-    public static function replyKeyboardRemove (bool $selective = false) :string
+    public static function replyKeyboardRemove(bool $selective = false) : string
     {
-        return json_encode ([
+        return json_encode([
             'remove_keyboard' => true,
             'selective' => $selective
         ]);
     }
-    
+
     /**
      * Shows reply interface to the user, as if they manually selected the bot's message and tapped 'Reply'.
      * 
@@ -442,9 +531,9 @@ class Buttons {
      * 
      * @return string
      */
-    public static function forceReply (string $input_field_placeholder = '', bool $selective = false) :string
+    public static function forceReply(string $input_field_placeholder = '', bool $selective = false) : string
     {
-        return json_encode ([
+        return json_encode([
             'force_reply' => true,
             'input_field_placeholder' => $input_field_placeholder,
             'selective' => $selective
