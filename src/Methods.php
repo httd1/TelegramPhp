@@ -582,6 +582,20 @@ class Methods
         return self::call(__FUNCTION__, $data);
     }
 
+/**
+     * Use this method to set a tag for a regular member in a group or a supergroup.
+     *
+     * @see https://core.telegram.org/bots/api#setchatmembertag
+     *
+     * @param array $data
+     *
+     * @return array
+     */
+    public static function setChatMemberTag(array $data) : array
+    {
+        return self::call(__FUNCTION__, $data);
+    }
+
     /**
      * Use this method to ban a channel chat in a supergroup or a channel.
      * 
